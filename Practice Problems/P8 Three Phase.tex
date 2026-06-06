@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\usepackage{bm}
+\usepackage{float}
+
+\title{Practice Problems: \\AC Power \\  \large Introduction to Electric Circuits \\ Supplemental Instruction}
+\author{Cooper McAllister}
+\date{April 13 2026}
+\begin{document}
+\fancypagestyle{footerstyle} {
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[L]{\textit{For personal study and students leading supplemental instruction, \\ with attribution given to the author. \\ Find more at coopermcallister.com}}
+	\fancyfoot[R]{\thepage}
+}
+\pagestyle{footerstyle}
+\maketitle
+\thispagestyle{footerstyle}
+
+\begin{center}
+\textit{This document is not a substitute for a textbook or classroom instruction. It may contain errors and is intended to be used only to the extent that it is helpful to supplement students' learning experience.}
+\end{center}
+
+\section{Y Configuration Voltages and Currents}
+A generator of phase voltage $V_p = 200$ V, in the Y configuration, is connected to a Y-connected load of $20\Omega$ per phase. Find the magnitude of (a) the line voltage, (b) the phase current at the load, and (c) the line current.
+\subsection*{Solution}
+The generator is Y-connected, so $V_l = \sqrt{3}V_p$. Therefore, the line voltage is $V_l = \sqrt{3}\cdot 200 \textrm{V} = 346 \ \textrm{V}$ (a).
+\\The phase voltage of the load is the same as the phase voltage of the source, so the phase current can be calculated at the load as $I_p = \frac{200\textrm{V}}{20\Omega} = 10 \ \textrm{A}$ (b). For Y configuration, the phase and line current are identical, so $I_l = I_p = 10 \ \textrm{A}$.
+
+\section{Y and $\Delta$ Configurations}
+A Y-connected source of $V_l = 150$ V is connected to a delta-configured load of $5 + 10j \Omega$ per phase. Find the magnitude of (a) the phase voltage of the source, (b) the phase current of the source, and (c) the line current.
+\subsection*{Solution}
+For the load, the line and phase voltages are identical, so $V_p = 150$ V (a). The magnitude of the load impedance is $\sqrt{5^2 + 10^2} = 11.18 \Omega$, so the load phase current is $I_p = \frac{150\textrm{V}}{11.18\Omega} = 13.42$ A (b). For the load, $I_l = \sqrt{3}I_p = \sqrt{3}\cdot13.42\textrm{A} = 23.24$ A (c).
+
+\section{Phase Sequence}
+A Y-Y system has a source with phase voltage magnitude of $V_p = 50$ V. The per-phase impedance is equivalent to a $5\Omega$ resistance in parallel with a $8\Omega$ capacitive reactance. The phase sequence is BAC, and the angle of the voltage of phase B is zero. Find (a) the phasor voltages of each phase and the phasor diagram, (b) The phasor currents for each phase and the phasor diagram, and (c) the power factor of the load.
+\subsection*{Solution}
+The phase sequence means that B leads A, A leads C, and C leads B. Therefore, $\alpha_B = 0^\circ$, $\alpha_C = 120^\circ$, and $\alpha_A = -120^\circ$. Therefore, the phase voltages are $\bm{V_A} = 50\angle -120^\circ$, $\bm{V_B} = 50\angle 0^\circ$, and $\bm{V_C} = 50\angle 120^\circ$ (a). For each phase, the impedance is $Z = \frac{1}{\frac{1}{5} - \frac{1}{8j}} = 4.24\angle -32^\circ \ \Omega$. Therefore, the currents can be found using Ohm's Law:
+$\bm{I_A} = \frac{50\angle -120^\circ \ \textrm{V}}{4.24\angle -32^\circ \ \Omega} = 11.8\angle -88^\circ \ \textrm{A}$, $\bm{I_B} = \frac{50\angle 0^\circ \ \textrm{V}}{4.24\angle -32^\circ \ \Omega} = 11.8\angle 32^\circ \ \textrm{A}$, and $\bm{I_C} = \frac{50\angle 120^\circ \ \textrm{V}}{4.24\angle -32^\circ \ \Omega} = 11.8\angle 152^\circ \ \textrm{A}$ (b). The power factor can be found as $\cos(\alpha_v - \alpha_i) = \cos(\alpha_z) = \cos(-32^\circ) = 0.848$, leading.
+
+
+\newpage
+\section*{References}
+\begin{itemize}
+\item M. Iordache. Class Lectures, Topic: ``Electric circuits.'' EEGR 2053, School of Engineering and Engineering Technology, LeTourneau University, 2025.
+\item M. Iordache. 2024. EEGR 2053 Electric circuits [PowerPoint slides]. Available: \\ https://mviordache.name/EEGR2053/index.html
+\item T. L. Floyd and D. M. Buchla, Principles of Electric Circuits: Conventional Current, 10th ed. Hoboken, NJ: Pearson Education, 2020.
+\item O. Ortiz. 2025. ENGR 2053 Intro to electric circuits [PowerPoint slides].
+\end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+

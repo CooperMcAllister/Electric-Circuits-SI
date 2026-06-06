@@ -1,0 +1,262 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\title{1. Definitions and Units \\  \large Introduction to Electric Circuits \\ Supplemental Instruction}
+\author{Cooper McAllister}
+\date{January 14 2026}
+\begin{document}
+\fancypagestyle{footerstyle} {
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[L]{\textit{For personal study and students leading supplemental instruction, \\ with attribution given to the author. \\ Find more at coopermcallister.com}}
+	\fancyfoot[R]{\thepage}
+}
+\pagestyle{footerstyle}
+\maketitle
+\thispagestyle{footerstyle}
+\section{Introduction}
+\begin{center}
+\textit{This document is not a substitute for a textbook or classroom instruction. It may contain errors and is intended to be used only to the extent that it is helpful to supplement students' learning experience.}
+\end{center}
+Welcome to Electric Circuits! As someone who loves circuits, I'm thrilled to help share this exciting subject with y'all. Circuits may not be as exciting to you as it is to me, but I hope that you can, on the whole, have an enjoyable experience in this class and take away some useful knowledge about God's amazing creation.
+
+My goal when creating these study guides was not to provide a substitute for a textbook, or a comprehensive set of review topics, or demonstrate the ``right'' way of doing things. I simply wanted to provide yet another source you can use to review concepts. If you can read the textbook and understand everything, these notes will not be of use to you. But if it helps to see an alternate point of view, these guides might be useful.
+
+This first unit covers units and quantities that you'll use in circuits, as well as the basic elements we use to draw circuit diagrams. In circuits, there are relatively few things you'll have to memorize, and most of them will hopefully become so intuitive that, by the time you take the exam, you won't have to worry about remembering them. A big part of studying circuits, particularly at the beginning, revolves around building intuition of how voltage and current work. If you build a strong understanding of these fundamentals, you'll do well when we move to more complex topics.
+
+\section{Charge, Current, Voltage, and Power}
+\subsection{SI Units}
+Important SI Units Include:
+\begin{center}
+\begin{tabular}{| c | c | c |}
+\hline
+Quantity & Unit & Symbol \\
+\hline
+\hline
+Length & Meter & m \\
+\hline
+Mass & Kilogram & kg \\
+\hline
+Time & Second & s \\
+\hline
+\textbf{Charge} & \textbf{Coulomb} & \textbf{C} \\
+\hline
+\textbf{Current} & \textbf{Ampere} & \textbf{A} \\
+\hline
+\textbf{Voltage} & \textbf{Volt} & \textbf{V} \\
+\hline
+\textbf{Resistance} & \textbf{Ohm} & \textbf{$\Omega$} \\
+\hline
+\textbf{Power} & \textbf{Watt} & \textbf{W} \\
+\hline
+\end{tabular}
+\end{center}
+Of particular interest for Electric Circuits are the Couloumb, Ampere, Volt, Ohm, and Watt.
+\subsection{Engineering Notation and Prefixes}
+Below is a table of common metric prefixes used for engineering notation: \\
+\begin{center}
+\begin{tabular}{| c | c | c | c |}
+\hline
+Prefix & Symbol & Scientific Value & Decimal Value \\
+\hline
+\hline
+Peta & P & $10^{15}$ & $1,000,000,000,000,000$ \\
+\hline
+Tera & T & $10^{12}$ & $1,000,000,000,000$ \\
+\hline
+Giga & G & $10^{9}$ & $1,000,000,000$ \\
+\hline
+Mega & M & $10^{6}$ & $1,000,000$ \\
+\hline
+kilo & k & $10^{3}$ & $1,000$ \\
+\hline
+\hline
+milli & m & $10^{-3}$ & $0.001$ \\
+\hline
+micro & $\mu$ & $10^{-6}$ & $0.000001$ \\
+\hline
+nano & n & $10^{-9}$ & $0.000000001$ \\
+\hline
+pico & p & $10^{-12}$ & $0.000000000001$ \\
+\hline
+femto & f & $10^{-15}$ & $0.000000000000001$ \\
+\hline
+\end{tabular}
+\end{center}
+In general, for \textbf{engineering notation}, a metric prefix is used that has a power that is a multiple of three (as in the table above) and the magnitude of the coefficient is between 1 and 999.
+For example,
+$$89.5 \ \textrm{km}$$
+$$937.918 \ \textrm{GJ} $$
+$$67 \ \textrm{mA} $$
+$$8 \ \mu \textrm{V}$$
+It is a good idea to become comfortable with converting between prefixes in engineering notation. For example,
+$$0.004 \ \textrm{A} = 4 \ \textrm{mA}$$
+$$0.0289 \ \textrm{mV} = 28.9 \ \mu \textrm{V}$$
+$$1,034.7 \ \textrm{W} = 1.0347 \ \textrm{kW}$$
+\subsection{Electrical Charge}
+Electrical Charge is a property of matter that results from an excess or deficiency of electrons. The fundamental unit of charge is the Coulomb (C). One electron has a charge of $-1.6 \cdot 10^{-19} \ \textrm{C}$.
+\subsection{Electrical Current}
+Electrical Current is defined as the rate of flow of charge. The unit of current is the Ampere (A), which is defined as
+$$\textrm{A} = \frac{\textrm{C}}{s}$$
+In other words, if 1 ``Coulomb's worth'' of electrons pass through a wire in 1 s, then that wire has a current of 1 A flowing through it. \\
+ Current is measured \textbf{flowing through a wire}. The symbol used for current is I (from French \textit{intensité de courant}, ``current intensity''). Current can also be expressed as the time derivative of charge:
+$$ I = \frac{dQ}{dt}$$
+To denote a current flowing in a wire, an arrow is used to show direction. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[short, f=$5 \ \textrm{A}$] (3, 0)
+;
+\end{circuitikz} \\ \\
+The current can also be written going in the opposite direction with the opposite sign. The following is equivalent to the current above: \\ \\
+\begin{circuitikz}[american] \draw
+(3, 0) to[short, f=$-5 \ \textrm{A}$] (0, 0)
+;
+\end{circuitikz}
+\subsection{Voltage}
+Electric Voltage, or Electrical Potential, is the ability for a circuit to do work. Voltage is measured \textbf{between points in space}. It is defined as the ratio of Work and Charge:
+$$ V = \frac{W}{Q}$$
+In other words, one volt is the potential between two points if one Joule is used to move one Coulomb of charge from one point to the other.
+To denote a voltage between two points, a $+$ and $-$ are used to show polarity. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) node[above]{$a$} to[open, *-*, v=$5 V$] (3, 0) node[above]{$b$}
+;
+\end{circuitikz} \\ \\ 
+In this case, we could say that the voltage from $a$ to $b$ ($V_{ab}$) is 5V.
+The voltage can also be written with the opposite polarity and the oppose sign. The following is equivalent to the voltage above: \\ \\
+\begin{circuitikz}[american] \draw
+(3, 0) node[above]{$b$} to[open, *-*, v=$-5 V$] (0, 0) node[above]{$a$}
+;
+\end{circuitikz} \\ \\ 
+In this case, we could say that the voltage from $b$ to $a$ ($V_{ba}$) is -5V.
+\subsubsection{Sources of Voltage}
+There are many different circuit components that are sources of voltage. For an ideal voltage source, the voltage between the source's terminals (the voltage provided by the source) is constant regardless of the load. Some examples include:
+\begin{itemize}
+\item Batteries, including Alkaline, Lead-Acid, Lithium, or other chemistry 
+\item Generators
+\item Solar Cells
+\item Fuel Cells
+\end{itemize}
+\subsection{Resistance}
+Resistance (R) is the opposition to the flow of current. The relationship between Voltage, Current, and Resistance is described by Ohm's Law, which we will use extensively throughout this course.
+\subsection{Conductance}
+Conductance (G) is the inverse of Resistance: $G = \frac{1}{R}$. Conductance is measured in Siemens (S).
+\subsection{Power}
+Power, in general, is the time derivative of energy:
+$$P = \frac{dE}{dt}$$
+Power is measured in Watts (W). One Watt is equal to one Ampere times one Volt.
+For an electric component in a circuit, power is calculated as the product of voltage and current:
+$$P = IV$$
+Power can be described as either \textbf{generated} or \textbf{absorbed}. Absorbed power is sometimes called \textbf{dissipated} or \textbf{delivered} to a device. Power can also be either positive or negative. The \textit{passive sign convention} defines \textbf{absorbed} power as $P = IV$ where $I$ is the current entering at the positive terminal of $V$.\\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[short, f=$I$] (1, 0) to[twoport, v=$V$] (5, 0)
+;
+\end{circuitikz} \\ \\ 
+If $I$ enters at the negative terminal of $V$, the power has a negative sign: $P=-IV$.
+\\ For example: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0)  to[twoport, v=$2V$] (3, 0) to[short, f<=$3A$] (5, 0)
+;
+\end{circuitikz} \\ \\ 
+Because in this case the current enters the negative terminal, to find dissipated power, we will use $P = -IV = -3\cdot2 = -6 \ \textrm{W}$. Alternatively, we could find the current entering the positive terminal as $-3 \ \textrm{A}$, then use $P = IV = (-3)\cdot2 = -6 \ \textrm{W}$.
+\section{Types of Circuits and Circuit Elements}
+Circuit diagrams are a way of visually representing idealized circuits so that they can be analyzed. In a circuit diagram, lines represent conductors, such as wires, and various symbols are used for circuit elements. Circuit diagrams are generally assumed to be complete, that is, every current path is represented in the diagram. This means that the current entering a component or wire equals the current leaving it.
+Additionally, conductors are assumed to be ideal. This means that they have 0 resistance and have the same potential (voltage) at every point (when voltages are defined with respect to a common reference):\\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) node[above]{$V_A$} to[short, o-, f=$I_1$] (2, 0) to[short, -o, f=$I_2$]  (4, 0) node[above]{$V_B$}
+;
+\end{circuitikz}
+$\quad V_A = V_B$, $V_{AB} = 0$, and $I_1 = I_2$
+\\ \\
+A \textbf{node} is a group of touching conductors. A node has the same potential at every point, but \textit{not} the same current everywhere.
+\\ A \textbf{branch} usually means a single current path.
+\\ \\ A \textbf{voltage source} is drawn using either of the following symbols (the left symbol might be used for a benchtop power supply and the right for a battery): \\ \\
+\begin{circuitikz}[american] \draw
+(0, 2) to[vsource] (0, 0)
+(3, 2) to[battery] (3, 0)
+;
+\end{circuitikz} \\ \\
+A voltage source maintains a constant voltage across its terminals.
+\\ A voltage source with a value of 0 V is the same as a short circuit: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 2) to[vsource, l=$0\textrm{V}$] (0, 0)
+(3, 2) -- (3, 0)
+(1.4, 1.1) -- (2.25, 1.1) (1.4, 0.9) -- (2.25, 0.9)
+;
+\end{circuitikz} \\ \\
+\\ \\ A \textbf{current source} is drawn using the following symbol: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource] (0, 2)
+;
+\end{circuitikz} \\ \\
+A current source maintains a constant current through itself.
+\\ A current source with a value of 0 A is the same as an open circuit: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 2) to[isource, invert, o-o, l=$0\textrm{A}$] (0, 0)
+(3, 2) to[open, o-o] (3, 0)
+(1.4, 1.1) -- (2.25, 1.1) (1.4, 0.9) -- (2.25, 0.9)
+;
+\end{circuitikz} \\ \\
+\\ \\ Sources can also be dependent if drawn with a diamond instead of a circle: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 2) to[cvsource] (0, 0)
+(3, 0) to[cisource] (3, 2)
+;
+\end{circuitikz} \\ \\
+The value of a dependent source is usually a function of another voltage or current in the circuit.
+\\ \\ The most common circuit element is the \textbf{resistor}, which is drawn using the following symbol: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R] (2, 0)
+;
+\end{circuitikz} \\ \\
+Another important circuit element is \textbf{ground}, which is used to define a common reference point from which other voltages in the circuit are measured: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) node[ground]{}
+;
+\end{circuitikz} \\ \\
+Ground is usually drawn near the bottom of a circuit, so higher voltages are generally spatially higher. However, ground can be arbitrarily chosen as any node.
+\subsection{Series Circuits}
+Components in a circuit are said to be in \textbf{series} if they are on the \textbf{same current path}. For example, $R_1$ and $R_2$ are in series: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R=$R_1$] (2, 0) to[R=$R_2$] (4, 0)
+;
+\end{circuitikz} \\ \\
+\subsection{Parallel Circuits}
+Components in a circuit are said to be in \textbf{parallel} if they are \textbf{between the same pair of nodes}. For example, $R_3$ and $R_4$ are in parallel: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 1) to[R=$R_3$] (3, 1) (0, 0) to[R=$R_4$] (3, 0) (0, 1) -- (0, 0) (3, 1) -- (3, 0) (0, 0.5) -- (-0.5, 0.5) (3, 0.5) -- (3.5, 0.5)
+;
+\end{circuitikz} \\ \\
+\subsection{Common Circuit Elements}
+Other common circuit elements that will be discussed later in this class include
+\begin{itemize}
+\item Capacitors
+\item Inductors
+\item Operational Amplifiers
+\item Voltmeters
+\item Ammeters
+\item Switches
+\end{itemize}
+Other circuit elements not discussed in this class include
+\begin{itemize}
+\item BJT Transistors
+\item MOSFETs
+\item Diodes
+\item Motors and Generators
+\end{itemize}
+
+\subsection{A Note on Capitalization}
+The letters V, I, and R are almost always used for Voltage, Current, and Resistance, respectively. However, both upper case and lower case are used for voltage and current. Often, when using frequecy domain analysis (which we will introduce later in the course), $v$ and $i$ are used for quantities in the time domain, while $V$ and $I$ or $\textbf{V}$ and $\textbf{I}$ are used for quantities in the frequency domain. But for now, capitalization doesn't really matter. R, however, should almost always capitalized for normal resistors.
+
+\newpage
+\section*{References}
+\begin{itemize}
+\item M. Iordache. Class Lectures, Topic: ``Electric circuits.'' EEGR 2053, School of Engineering and Engineering Technology, LeTourneau University, 2024.
+\item M. Iordache. 2024. EEGR 2053 Electric circuits [PowerPoint slides]. Available: \\ https://mviordache.name/EEGR2053/index.html
+\item T. L. Floyd and D. M. Buchla, Principles of Electric Circuits: Conventional Current, 10th ed. Hoboken, NJ: Pearson Education, 2020.
+\item O. Ortiz. 2025. ENGR 2053 Intro to electric circuits [PowerPoint slides].
+\end{itemize}
+
+\end{document}

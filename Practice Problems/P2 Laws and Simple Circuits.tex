@@ -1,0 +1,462 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\title{Practice Problems: \\Laws and Simple Circuits \\  \large Introduction to Electric Circuits \\ Supplemental Instruction}
+\author{Cooper McAllister}
+\date{February 19 2026}
+\begin{document}
+\fancypagestyle{footerstyle} {
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[L]{\textit{For personal study and students leading supplemental instruction, \\ with attribution given to the author. \\ Find more at coopermcallister.com}}
+	\fancyfoot[R]{\thepage}
+}
+\pagestyle{footerstyle}
+\maketitle
+\thispagestyle{footerstyle}
+
+\begin{center}
+\textit{This document is not a substitute for a textbook or classroom instruction. It may contain errors and is intended to be used only to the extent that it is helpful to supplement students' learning experience.}
+\end{center}
+
+\section{Ohm's Law}
+Find $v_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$250 \ \textrm{mA}$] (0, 3) -- (2, 3) to[R=$20\Omega$, v=$v_x$] (2, 0) -- (0, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+$$v_x = 250 \textrm{mA} \cdot 20\Omega = 5 \ \textrm{V}$$
+
+\section{Ohm's Law}
+Find $i_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(3, 0) to[vsource, l=$10 \ \textrm{V}$] (3, 3) to[short, f_=$i_x$] (0, 3) to[R=$20\Omega$] (0, 0) -- (3, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+$$i_x = \frac{-10 \textrm{V}}{20\Omega} = -500 \textrm{mA}$$
+
+\section{Ohm's Law in Series}
+Find $V_1$, $V_2$, and $V_3$. \\ \\
+\begin{circuitikz}[american] \draw
+(-3, 0) to[short, f=$50 \ \textrm{mA}$] (0, 0) to[R, l=$100 \ \Omega$, v=$V_1$] (3, 0) to[R, l=$2 \ \textrm{k}\Omega$, v<=$V_2$] (6, 0) to[R, l=$7 \ \textrm{M}\Omega$, v=$V_3$] (9, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+$$V_1 = 50 \ \textrm{mA} \cdot 100 \ \Omega = 5 \ \textrm{V}$$
+$$V_2 = -50 \ \textrm{mA} \cdot 2 \ \textrm{k}\Omega = -100 \ \textrm{V}$$
+$$V_3 = 50 \ \textrm{mA} \cdot 7 \ \textrm{M}\Omega = 350 \ \textrm{kV}$$
+
+\section{Ohm's Law in Parallel}
+Find $I_1$, $I_2$, and $I_3$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[open, v<=$10 \ \textrm{V}$] (0, 3) (3, 0) to[R, l=$1 \ \textrm{k}\Omega$, f<=$I_1$] (3, 3) (6, 0) to[R, l=$8 \Omega$, f<=$I_2$] (6, 3) (9, 0) to[R, l=$470 \ \Omega$, f=$I_3$] (9, 3)
+(0, 0) to (9, 0) (0, 3) to (9, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+$$I_1 = \frac{10 \ \textrm{V}}{1 \ \textrm{k}\Omega} = 10 \ \textrm{mA}$$
+$$I_1 = \frac{10 \ \textrm{V}}{8 \ \Omega} = 1.25 \ \textrm{A}$$
+$$I_1 = -\frac{10 \ \textrm{V}}{470 \ \Omega} = -21.28 \ \textrm{mA}$$
+
+\section{Ohm's Law}
+Find $V_p$.
+\begin{circuitikz}[american] \draw
+(0, 0)  to[R=$5 \ \textrm{k}\Omega$, v<=$V_p$] (2, 0) to[short, f=$-3 \ \textrm{mA}$] (3, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+$$Vp = -(-3 \ \textrm{mA})\cdot5\textrm{k}\Omega = 15 \ \textrm{V}$$
+
+\section{KVL}
+Find $V_x$, $V_y$, and $V_z$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, l =$3 \ \textrm{V}$] (0, 3) to[short] (0, 6) to[R] (3, 6) to[short] (6, 6) to[short] (9, 6) to[vsource, l =$12 \ \textrm{V}$] (9, 0) to[R, v<=$V_z$] (6, 0) to[short] (3, 0) to[short] (0, 0)
+(0, 3) to[R, v<=$1 \ \textrm{V}$] (3, 3)
+(3, 0) to[R, v<=$V_x$] (3, 3) to[vsource, invert, l =$5 \ \textrm{V}$] (3, 6)
+(6, 0) to[isource, v=$V_y$] (6, 6)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+$$V_x = 1 - 3 = -2 \ \textrm{V}$$
+$$V_y = 5 + 1 - 3 = 3 \ \textrm{V} \quad \textrm{or if we use } V_x, \quad V_y = 5 + (-2) = 3\ \textrm{V}$$
+$$V_z = 3 - 1 - 5 + 12 = 9\ \textrm{V} \quad \textrm{or if we use } V_y, \quad V_z = -3 + 12 = 9\ \textrm{V}$$
+
+\section{Finding current with KVL}
+Find $I_1$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) node[ground]{} to[vsource, invert, l=$10\textrm{V}$] (0, 3) to[R, l=$3.3\textrm{k}\Omega$] (3, 3) to[R, l=$56\textrm{k}\Omega$] (6, 3) to[R, l=$2.2\textrm{k}\Omega$, f=$I_1$] (9, 3) to[battery, l=$3\textrm{V}$] (9, 0) node[ground]{}
+(3, 3) -- (3, 4) -- (6, 4) -- (6, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+The circuit can be redrawn as: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) node[ground]{} to[vsource, invert, l=$10\textrm{V}$] (0, 3) to[R, l=$3.3\textrm{k}\Omega$] (3, 3) to[short] (6, 3) to[R, l=$2.2\textrm{k}\Omega$, f=$I_1$] (9, 3) to[battery, l=$3\textrm{V}$] (9, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+So, $I_1 = \frac{10 \textrm{V} - 3\textrm{V}}{3.3\textrm{k}\Omega + 2.2\textrm{k}\Omega} = 1.27 \ \textrm{mA}$
+
+\section{KCL}
+Find $I_w$, $I_x$, $I_y$, and $I_z$. \\ \\ 
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, f<=$I_a$] (0, 3) to[isource, l=$8 \ \textrm{A}$] (0, 6) to[short] (3, 6) to[R] (6, 6) to[short] (6, 3) to[isource, l=$7 \ \textrm{A}$] (6, 0) to[R, f=$I_y$] (3, 0) to[short] (0, 0)
+(0, 3) to[short, f=$I_z$] (3, 3) to[short] (6, 3)
+(3, 0) to[R] (3, 1.5) to[isource, l=$2 \ \textrm{A}$] (3, 3) to[R] (3, 6)
+(6, 0) to[short, f=$I_x$] (9, 0) to[isource, l=$5 \ \textrm{A}$] (14, 0) to[short] (14, 3) to[short] (14, 6) to[isource, invert, l=$2 \ \textrm{A}$] (9, 6) to[short] (9, 3) to[short] (9, 0)
+(9, 3) to[R, f<=$I_w$] (14, 3)
+;
+\node[draw=none] at (14.25, 3) {$\textbf{a}$};
+\node[draw=none] at (6, -0.25) {$\textbf{b}$};
+\node[draw=none] at (2.75, -0.25) {$\textbf{c}$};
+\node[draw=none] at (0.25, 3.25) {$\textbf{d}$};
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+(a) $\textrm{Summing currents entering at \textbf{a}: }2 + 5 - I_w = 0 \Rightarrow I_w = 2 + 5 = 7 \ \textrm{A}$
+\\ (b) $\textrm{Summing for either half of the circuit: }I_x = 0 \ \textrm{A}$
+\\ (c) $\textrm{Summing currents entering at \textbf{b}: }7 - I_x - I_y = 0 \Rightarrow I_y = 7 \ \textrm{A}$
+\\ (d) $\textrm{Summing currents entering at \textbf{c}: }I_y + I_a - 2 = 0\Rightarrow I_a = 2 - 7 = -5 \ \textrm{A}$
+\\ then summing currents leaving at \textbf{d}: $I_a + I_z + 8 = 0 \Rightarrow I_z = -8 - (-5) = -3 \ \textrm{A}$
+
+\section{Series Resistor Combinations}
+Find $R_{eq}$ and $V_s$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[open] (0, 3) to[R=$5 \textrm{k}\Omega$] (3, 3) to[R=$700\Omega$] (6, 3) to[R=$250 \Omega$] (6, 0) to[R=$1.5 \textrm{k}\Omega$] (0, 0)
+;
+\draw (-1, 1.5) -- (-0.5, 1.5) [->];
+\node[draw=none] at (-1.5, 1.5) {$R_{eq}$};
+\end{circuitikz}
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$V_s$] (0, 3) to[R=$5 \textrm{k}\Omega$] (3, 3) to[R=$700\Omega$] (6, 3) to[R=$250 \Omega$] (6, 0) to[R=$1.5 \textrm{k}\Omega$, f=$50 \textrm{mA}$] (0, 0)
+;
+\end{circuitikz}
+\subsection*{Solution}
+$R_{eq} = 5\textrm{k}\Omega + 700\Omega + 250\Omega + 1.5\textrm{k}\Omega = 7.45 \textrm{k}\Omega$.
+We can draw the the equivalent circuit: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$V_s$] (0, 3) to[short] (3, 3) to[R=$7.45 \textrm{k} \Omega$] (3, 0) to[short, f=$50 \textrm{mA}$] (0, 0)
+;
+\end{circuitikz} \\ \\
+$V_s = 50\textrm{mA} \cdot 7.45 \textrm{k}\Omega = 372.5 \ \textrm{V}$
+
+\section{Resistor Combinations}
+Find $R_{eq}$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R, l=$6 \ \Omega$] (0, 3) to[short] (3, 3) to[R, l=$5 \ \Omega$] (6, 3) to[R, l=$8 \ \Omega$] (9, 3)
+(0, 0) to[short] (3, 0) to[short] (6, 0) to[R, l=$2 \ \Omega$] (9, 0)
+(3, 0) to[R, l=$6 \ \Omega$] (3, 3)
+(6, 0) to[R, l=$12 \ \Omega$] (6, 3);
+\draw (10, 1.5) -- (9.5, 1.5) [->];
+\node[draw=none] at (10.5, 1.5) {$R_{eq}$};
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+Combining the left two resistors in parallel: $\frac{1}{\frac{1}{6} + \frac{1}{6}} = 3$. We now have \\ \\
+\begin{circuitikz}[american] \draw
+(3, 3) to[R, l=$5 \ \Omega$] (6, 3) to[R, l=$8 \ \Omega$] (9, 3)
+ (3, 0) to[short] (6, 0) to[R, l=$2 \ \Omega$] (9, 0)
+(3, 0) to[R, l=$3 \ \Omega$] (3, 3)
+(6, 0) to[R, l=$12 \ \Omega$] (6, 3);
+\draw (10, 1.5) -- (9.5, 1.5) [->];
+\node[draw=none] at (10.5, 1.5) {$R_{eq}$};
+\end{circuitikz} \\ \\
+Combining the left two resistors in series, $5 + 3 = 8$. We now have \\ \\
+\begin{circuitikz}[american] \draw
+(3, 3) to[short] (6, 3) to[R, l=$8 \ \Omega$] (9, 3)
+ (3, 0) to[short] (6, 0) to[R, l=$2 \ \Omega$] (9, 0)
+(3, 0) to[R, l=$8 \ \Omega$] (3, 3)
+(6, 0) to[R, l=$12 \ \Omega$] (6, 3);
+\draw (10, 1.5) -- (9.5, 1.5) [->];
+\node[draw=none] at (10.5, 1.5) {$R_{eq}$};
+\end{circuitikz} \\ \\
+Combining the left two resistors in parallel, $\frac{1}{\frac{1}{8} + \frac{1}{12}} = 4.8$. We now have \\ \\
+\begin{circuitikz}[american] \draw
+(6, 3) to[R, l=$8 \ \Omega$] (9, 3)
+(6, 0) to[R, l=$2 \ \Omega$] (9, 0)
+(6, 0) to[R, l=$4.8 \ \Omega$] (6, 3);
+\draw (10, 1.5) -- (9.5, 1.5) [->];
+\node[draw=none] at (10.5, 1.5) {$R_{eq}$};
+\end{circuitikz} \\ \\
+Combining the resistors in series, $8 + 4.8 + 2 = 14.8$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R, l=$14.8 \ \Omega$] (0, 3);
+\end{circuitikz} \\ \\
+$R_{eq} = 14.8 \ \Omega$
+
+\section{Resistor Combinations}
+Find $R_{eq}$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R, l=$10 \ \Omega$] (0, 5) to[R, l=$20 \ \Omega$] (5, 5) to[short] (6, 5)
+(0, 0) to[short] (5, 0) to[short] (6, 0)
+(5, 0) to[R, l=$100 \ \Omega$] (5, 5)
+(0, 0) to[R, l=$125 \ \Omega$] (3, 3) to[short] (5, 5)
+(0, 5) to[R, l=$30 \ \Omega$] (2, 3) to[crossing, bipoles/crossing/size=0.7] (3, 2) to[short] (5, 0);
+\draw (6.5, 2.5) -- (6, 2.5) [->];
+\node[draw=none] at (7, 2.5) {$R_{eq}$};
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+It will help to redraw the circuit by moving the 30 $\Omega$ resistor over to the left: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R, l=$30 \ \Omega$] (0, 3) to[short] (3, 3) to [R, l=$20 \ \Omega$] (6, 3) to[short] (7, 3)
+(0, 0) to[short] (3, 0) to[R, l=$10 \ \Omega$] (3, 3)
+(3, 0) to[R, l=$125 \ \Omega$] (6, 3)
+(3, 0) to[short] (6, 0) to[R, l=$100 \ \Omega$] (6, 3)
+(6, 0) to[short] (7, 0)
+;
+\draw (8, 1.5) -- (7.5, 1.5) [->];
+\node[draw=none] at (8.5, 1.5) {$R_{eq}$};
+\end{circuitikz} \\ \\
+Combining the left two resistors in parallel, $\frac{1}{\frac{1}{30} + \frac{1}{10}} = 7.5$. We now have \\ \\
+\begin{circuitikz}[american] \draw
+(3, 3) to [R, l=$20 \ \Omega$] (6, 3) to[short] (7, 3)
+(3, 0) to[R, l=$7.5 \ \Omega$] (3, 3)
+(3, 0) to[R, l=$125 \ \Omega$] (6, 3)
+(3, 0) to[short] (6, 0) to[R, l=$100 \ \Omega$] (6, 3)
+(6, 0) to[short] (7, 0)
+;
+\draw (8, 1.5) -- (7.5, 1.5) [->];
+\node[draw=none] at (8.5, 1.5) {$R_{eq}$};
+\end{circuitikz} \\ \\
+Combining the left two resistors in series, $7.5 + 20 = 27.5$. We now have \\ \\
+\begin{circuitikz}[american] \draw
+(3, 3) to [short] (6, 3) to[short] (7, 3)
+(3, 0) to[R, l=$27.5 \ \Omega$] (3, 3)
+(3, 0) to[R, l=$125 \ \Omega$] (6, 3)
+(3, 0) to[short] (6, 0) to[R, l=$100 \ \Omega$] (6, 3)
+(6, 0) to[short] (7, 0)
+;
+\draw (8, 1.5) -- (7.5, 1.5) [->];
+\node[draw=none] at (8.5, 1.5) {$R_{eq}$};
+\end{circuitikz} \\ \\
+Combining the resistors in parallel, $\frac{1}{\frac{1}{27.5} + \frac{1}{125} + \frac{1}{100}} = 18.39$. $R_{eq} = 18.39 \ \Omega$.
+
+\section{Series Source Combinations}
+Find $V_{tot}$ and $I_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$12 \ \textrm{V}$] (0, 3) to[vsource, l=$6 \ \textrm{V}$] (0, 6) to[vsource, invert, l=$5 \ \textrm{V}$] (0, 9)
+to[short, f=$I_x$] (3, 9) to[R, l=$2.2 \ \textrm{k}\Omega$, v=$V_{tot}$] (3, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+$V_{tot} = 5 - 6 + 12 = 11 \ \textrm{V}$ \\
+$I_x = \frac{V_{tot}}{2.2 \textrm{k}\Omega} = 5 \ \textrm{mA}$
+
+\section{Voltage Division}
+Find $V_1$ and $V_2$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$12 \ \textrm{V}$] (0, 9) to[short] (3, 9) to[R, l=$1 \ \textrm{k}\Omega$, v=$V_1$] (3, 6) to[R, l=$3.3 \ \textrm{k}\Omega$] (3, 3) to[R, l=$5.6 \ \textrm{k}\Omega$, v<=$V_2$] (3, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+$$V_1 = 12 \textrm{V}\cdot\frac{1 \textrm{k}\Omega}{1 \textrm{k}\Omega + 3.3 \textrm{k}\Omega + 5.6 \textrm{k}\Omega} = 1.212 \ \textrm{V}$$
+$$V_2 = -12 \textrm{V}\cdot\frac{5.6 \textrm{k}\Omega}{1 \textrm{k}\Omega + 3.3 \textrm{k}\Omega + 5.6 \textrm{k}\Omega} = -6.79 \ \textrm{V}$$
+
+\section{Voltage Division with unknown resistor values}
+Find $V_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[battery, invert, l=$12\textrm{V}$] (0, 3) to[R, l=$3R$] (6, 3) to[R, l=$R$] (6, 0) to[R, l=$R$] (3, 0) to[R, l=$R$] (0, 0)
+(-0.5, 0) to[open, v<=$V_x$, open voltage position=legacy, voltage shift=5] (6.5, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+$V_x = 12\textrm{V} \cdot \frac{R + R}{R + R + R + 3R} = 12\cdot \frac{2}{6} = 4 \ \textrm{V}$
+
+\section{Voltage Division / Ohm's Law}
+Find $V_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) node[ground]{} to[vsource, invert] (0, 3) to[R, l=$3\textrm{k}\Omega$] (3, 3) to[R, l=$3\textrm{k}\Omega$, v=$6\textrm{V}$] (6, 3) to[R, l=$1.5\textrm{k}\Omega$, v=$V_x$] (6, 0) node[ground]{}
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution (Method 1 - Ohm's Law)}
+\begin{circuitikz}[american] \draw
+(0, 0) node[ground]{} to[vsource, invert] (0, 3) to[R, l=$3\textrm{k}\Omega$] (3, 3) to[R, l=$3\textrm{k}\Omega$, v=$6\textrm{V}$, f=$I$] (6, 3) to[R, l=$1.5\textrm{k}\Omega$, v=$V_x$] (6, 0) node[ground]{}
+;
+\end{circuitikz} \\ \\
+Using Ohm's Law, $I = \frac{6\textrm{v}}{3\textrm{k}\Omega} = 2 \textrm{mA}$. Then, $V_x = 2 \textrm{mA} \cdot 1.5 \textrm{k}\Omega = 3 \ \textrm{V}$.
+\subsection*{Solution (Method 2 - Voltage Division)}
+\begin{circuitikz}[american] \draw
+(0, 0) node[ground]{} to[vsource, invert, l=$V_s$] (0, 3) to[R, l=$3\textrm{k}\Omega$] (3, 3) to[R, l=$3\textrm{k}\Omega$, v=$6\textrm{V}$] (6, 3) to[R, l=$1.5\textrm{k}\Omega$, v=$V_x$] (6, 0) node[ground]{}
+;
+\end{circuitikz} \\ \\
+Using Voltage Division, $6 \textrm{V} = V_s \cdot \frac{3\textrm{k}}{3\textrm{k} + 3\textrm{k} + 1.5\textrm{k}} \Rightarrow V_s = 15 \textrm{V}$. Then, $V_x = 15 \textrm{V} \cdot \frac{1.5\textrm{k}}{1.5\textrm{k} + 3\textrm{k} + 3\textrm{k}} = 3 \ \textrm{V}$.
+
+\section{Current Division}
+Find $I_1$ and $I_2$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$100 \ \textrm{mA}$] (0, 3) to[short] (9, 3) (0, 0) to[short] (9, 0)
+(3, 0) to[R, l=$7.5 \ \textrm{k}\Omega$, f=$I_1$] (3, 3) (6, 0) to[R, l=$1.5 \ \textrm{k}\Omega$] (6, 3) (9, 0) to[R, l=$470 \ \Omega$, f<=$I_2$] (9, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+$$I_1 = -100\textrm{mA}\cdot\frac{\frac{1}{7.5\textrm{k}\Omega}}{\frac{1}{7.5\textrm{k}\Omega} + \frac{1}{1.5\textrm{k}\Omega} + \frac{1}{470\Omega}} = -4.55 \ \textrm{mA}$$
+$$I_2 = 100\textrm{mA}\cdot\frac{\frac{1}{470\Omega}}{\frac{1}{7.5\textrm{k}\Omega} + \frac{1}{1.5\textrm{k}\Omega} + \frac{1}{470\Omega}} = 72.67 \ \textrm{mA}$$
+
+\section{Voltage and Current Division with Ohm's Law}
+Find $I_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5 \textrm{V}$] (0, 3) to[R, l=$8\Omega$] (3, 3) to[short] (6, 3) to[R, l=$3 \Omega$, f=$I_x$] (6, 0) to[short] (3, 0) to[short] (0, 0) (3, 0) to[R, l=$6 \Omega$] (3, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution (method 1)}
+Combining the resistors on the right: $\frac{1}{\frac{1}{6} + \frac{1}{3}} = 2\Omega$. Now we have \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5 \textrm{V}$] (0, 3) to[R, l=$8\Omega$, f=$I_y$] (3, 3) to[R, l=$2 \Omega$] (3, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+Combining resistors in series, $2 + 8 = 10\Omega$. Using ohm's law, we can find the total current $I_y = \frac{5\textrm{V}}{10\Omega} = 500 \textrm{mA}.$ We can now use current division: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5 \textrm{V}$] (0, 3) to[R, l=$8\Omega$, f=$I_y$] (3, 3) to[short] (6, 3) to[R, l=$3 \Omega$, f=$I_x$] (6, 0) to[short] (3, 0) to[short] (0, 0) (3, 0) to[R, l=$6 \Omega$] (3, 3)
+;
+\end{circuitikz} \\ \\
+$$I_x = I_y \cdot \frac{\frac{1}{3}}{\frac{1}{3} + \frac{1}{6}} = 500 \textrm{mA} \cdot \frac{\frac{1}{3}}{\frac{1}{3} + \frac{1}{6}} = 333.3 \textrm{mA}$$
+\subsection*{Solution (method 2)}
+Combining the resistors on the right: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5 \textrm{V}$] (0, 3) to[R, l=$8\Omega$] (3, 3) to[R, l=$2 \Omega$, v=$V_y$] (3, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+Using voltage division, $V_y = 5 \textrm{V}\cdot\frac{2}{2+8} = 1 \textrm{V}.$ We can now use Ohm's law: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5 \textrm{V}$] (0, 3) to[R, l=$8\Omega$] (3, 3) to[short] (6, 3) to[R, l=$3 \Omega$, f=$I_x$, v=$V_y$] (6, 0) to[short] (3, 0) to[short] (0, 0) (3, 0) to[R, l=$6 \Omega$] (3, 3)
+;
+\end{circuitikz} \\ \\
+$$I_x = \frac{V_y}{3\Omega} = \frac{1 \textrm{V}}{3\Omega} = 333.3 \textrm{mA}$$
+
+\section{Voltage and Current Division with Ohm's Law}
+Find $V_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$2 \textrm{A}$] (0, 3) to[short] (3, 3) to[R, l=$6\Omega$] (6, 3) to[R, l=$10\Omega$, v=$V_x$] (6, 0) to[short] (3, 0) to[short] (0, 0)
+(3, 0) to[R, l=$8\Omega$] (3, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+Combining resistors on the right, $6 + 10 = 16\Omega$. Then, combining resistors in parallel, $\frac{1}{\frac{1}{8} + \frac{1}{16}} = 5.33\Omega$. We now have \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$2 \textrm{A}$] (0, 3) to[short] (3, 3) to[R, l=$5.33\Omega$, v=$V_y$] (3, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+Using Ohm's Law, $V_y = 2 \textrm{A} \cdot 5.33 \Omega = 10.67 \textrm{V}$. We can now use voltage division: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$2 \textrm{A}$] (0, 3) to[short] (3, 3) to[R, l=$6\Omega$] (6, 3) to[R, l=$10\Omega$, v=$V_x$] (6, 0) to[short] (3, 0) to[short] (0, 0)
+(3, 0) to[R, l=$8\Omega$, v<=$V_y$] (3, 3)
+;
+\end{circuitikz} \\ \\
+$$V_x = V_y \cdot \frac{10}{10 + 6} = 10.67 \textrm{V} \cdot \frac{10}{10 + 6} = 6.67 \textrm{V}$$
+This problem could also be solved by combining the rightmost two resistors, using current division to find the current flowing through the rightmost branch, then using Ohm's Law to find the voltage on the 10$\Omega$ resistor.
+
+\section{Current Division and Ohm's Law}
+Find $I_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5\textrm{V}$] (0, 6) to[short] (3, 6) to[R, l=$6\Omega$] (3, 3) to[R, l=$24\Omega$] (3, 0) to[short] (0, 0)
+(3, 6) to[short] (6, 6) to[R, l=$12\Omega$] (6, 3) to[R, l=$8\Omega$, f<=$I_x$] (6, 0) to[short] (3, 0) (3, 3) to[short] (6, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+Combining parallel resistors, $\frac{1}{\frac{1}{6} + \frac{1}{12}} = 4\Omega$ (for the top), and $\frac{1}{\frac{1}{24} + \frac{1}{8}} = 6\Omega$ (for the bottom).  We now have
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5\textrm{V}$] (0, 6) to[short, f=$I_{tot}$] (3, 6) to[R, l=$4\Omega$] (3, 3) to[R, l=$6\Omega$] (3, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+Using Ohm's Law, $I_{tot} = \frac{5\textrm{V}}{(4 + 6)\Omega} = 500 \ \textrm{mA}$.
+Using current division, $I_x = -500\textrm{mA} \cdot \frac{24}{24 + 8} = -375 \ \textrm{mA}$.
+
+\section{KCL, Current Division, Ohm's Law}
+Find $V_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R, l=$10\textrm{k}\Omega$, v<=$V_x$] (0, 2) to[R, l=$10\textrm{k}\Omega$] (0, 4) to[short] (6, 4) to[isource, l=$2\textrm{mA}$] (8, 4) to[R, l=$1.1\textrm{k}\Omega$] (8, 0) to[short] (0, 0)
+(2, 0) to[isource, l=$8\textrm{mA}$] (2, 4) (4, 0) to[R, l=$20\textrm{k}\Omega$] (4, 4) (6, 0) to[R, l=$20\textrm{k}\Omega$] (6, 4)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+We can redraw the circuit as follows: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R, l=$10\textrm{k}\Omega$, v<=$V_x$, f<=$I_x$] (0, 2) to[R, l=$10\textrm{k}\Omega$] (0, 4) to[short] (4, 4) to[short, f<=$I_1$] (6, 4) to[isource, l=$2\textrm{mA}$] (8, 4) to[R, l=$1.1\textrm{k}\Omega$] (8, 0) to[short] (0, 0)
+(2, 0) to[R, l=$20\textrm{k}\Omega$] (2, 4) (4, 0) to[R, l=$20\textrm{k}\Omega$] (4, 4) (6, 0) to[isource, l=$8\textrm{mA}$] (6, 4)
+;
+\end{circuitikz} \\ \\
+By KCL, $8\textrm{mA} = I_1 + 2\textrm{mA} \Rightarrow I_1 = 6\textrm{mA}$. Then, using current division, $I_x = \frac{6\textrm{mA}}{3} = 2\textrm{mA}$. Using Ohm's Law, $V_x = 2\textrm{mA}\cdot10\textrm{k}\Omega = 20 \ \textrm{V}$
+
+\section*{Loading Effect}
+A voltmeter with an internal resistance of $1\textrm{M}\Omega$ is connected across the $200\textrm{k}\Omega$ resistor. Find $V_2$ before and after the voltmeter is connected. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$10\textrm{V}$] (0, 6) to[short] (3, 6) to[R, l=$100\textrm{k}\Omega$] (3, 3) to[R, l=$200\textrm{k}\Omega$, v=$V_2$] (3, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+Before the voltmeter is connected, $V_2 = 10\textrm{V} \cdot \frac{200\textrm{k}\Omega}{100\textrm{k}\Omega + 200\textrm{k}\Omega} = 6.667 \ \textrm{V}$. 
+After the voltmeter is connected, $V_2 = 10\textrm{V} \cdot \frac{200\textrm{k}\Omega || 1\textrm{M}\Omega}{100\textrm{k}\Omega + (200\textrm{k}\Omega || 1\textrm{M}\Omega)} = 6.25 \ \textrm{V}$.
+
+\section{Practical Voltage Source}
+Find $V_1$ when (a) the source has an internal resistance of $5\Omega$ and (b) the source has an internal resistance of $10\textrm{m}\Omega$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$9\textrm{V}$] (0, 3) to[short] (3, 3) to[R, l=$100\Omega$, v=$V_1$] (3, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+(a) $V_1 = 9\textrm{V} \cdot \frac{100\Omega}{100\Omega + 5\Omega} = 8.57 \ \textrm{V}$. (b) $V_1' = 9\textrm{V} \cdot \frac{100\Omega}{100\Omega + 10\textrm{m}\Omega} = 8.9991 \ \textrm{V}$.
+
+\section{General Analysis}
+Find $V_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[short] (0, 3) to[vsource, invert, l=$10\textrm{V}$] (0, 6) (3, 0) to[R, l=$40\Omega$] (3, 3) to[R, l=$5\Omega$] (3, 6) (0, 3) to[R, l=$40\Omega$] (3, 3)
+(6, 0) to[R, l=$50\Omega$] (6, 3) to[R, l=$75\Omega$] (6, 6) to[R, l=$75\Omega$] (9, 6) to[short] (9, 3) to[R, l=$100\Omega$] (9, 0) (6, 3) to[short] (9, 3) (6, 6) to[R, l=$75\Omega$] (9, 3)
+(3, 3) to[open, v=$V_x$] (6, 3)
+(0, 0) to[short] (9, 0) (0, 6) to[short] (6, 6)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+First we will combine all the parallel resistors: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[short] (0, 3) to[vsource, invert, l=$10\textrm{V}$] (0, 6) (3, 0) to[R, l=$20\Omega$, v<=$V_1$] (3, 3) to[R, l=$5\Omega$] (3, 6) 
+(6, 0) to[R, l=$\frac{100}{3}\Omega$, v<=$V_2$] (6, 3) to[R, l=$25\Omega$] (6, 6) 
+(3, 3) to[open, v=$V_x$] (6, 3)
+(0, 0) to[short] (6, 0) (0, 6) to[short] (6, 6)
+;
+\end{circuitikz} \\ \\
+We can find $V_1$ and $V_2$ using voltage division: $V_1 = 10\cdot\frac{20}{20 + 5} = 8 \textrm{V}$ and $V_2 = 10\cdot\frac{\frac{100}{3}}{\frac{100}{3} + 25} = \frac{40}{7} \textrm{V}$. Then, using KVL, $V_x = V_1 - V_2 = 8 - \frac{40}{7} = 2.29 \ \textrm{V}$.
+
+\section{General Analysis}
+Find $V_1$ and $V_2$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 1) node[ground]{} to[short] (0, 3) to[vsource, invert, l=$5\textrm{V}$] (3, 3) to[R, l=$7\Omega$] (6, 3) to[R, l=$10\Omega$] (9, 3) to[R, l=$5\Omega$, v=$V_2$] (12, 3) to[short] (12, 0) node[ground]{}
+(6, 0) node[ground]{} to[R, l=$8\Omega$, v<=$V_1$] (6, 3) to[R, l=$20\Omega$] (6, 6) to[short] (7, 6) node[ground]{}
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+We can redraw the circuit as follows: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) node[ground]{} to[vsource, invert, l=$5\textrm{V}$] (0, 3) to[R, l=$7\Omega$] (3, 3) to[short] (6, 3) to[R, l=$10\Omega$] (9, 3) to[R, l=$5\Omega$, v=$V_2$] (9, 0) to[short] (0, 0)
+(3, 0) to[R, l=$8\Omega$, v<=$V_1$] (3, 3) (6, 0) to[R, l=$20\Omega$] (6, 3)
+;
+\end{circuitikz} \\ \\
+Combining resistors: $R_{eq} = \frac{1}{\frac{1}{8} + \frac{1}{20} + \frac{1}{10 + 5}} = 4.1379 \ \Omega$\\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5\textrm{V}$] (0, 3) to[R, l=$7\Omega$] (3, 3) to[R, l=$4.1379\Omega$, v=$V_1$] (3, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\ 
+Using voltage division, $V_1 = 5\textrm{V} \cdot \frac{4.1379}{4.1379 + 7} = 1.858 \ \textrm{V}$.
+Now, applying voltage division on the original simplified circuit: $V_2 = V_1 \cdot \frac{5}{5 + 10} = 1.858\textrm{V} \cdot \frac{5}{15} = 0.62 \textrm{V} = 620 \ \textrm{mV}$.
+
+\newpage
+\section*{References}
+\begin{itemize}
+\item M. Iordache. Class Lectures, Topic: ``Electric circuits.'' EEGR 2053, School of Engineering and Engineering Technology, LeTourneau University, 2025.
+\item M. Iordache. 2024. EEGR 2053 Electric circuits [PowerPoint slides]. Available: \\ https://mviordache.name/EEGR2053/index.html
+\item T. L. Floyd and D. M. Buchla, Principles of Electric Circuits: Conventional Current, 10th ed. Hoboken, NJ: Pearson Education, 2020.
+\item O. Ortiz. 2025. ENGR 2053 Intro to electric circuits [PowerPoint slides].
+\end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+

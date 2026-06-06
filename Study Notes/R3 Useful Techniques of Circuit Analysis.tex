@@ -1,0 +1,208 @@
+\documentclass{article}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\title{3. Useful Techniques of Circuit Analysis \\  \large Introduction to Electric Circuits \\ Supplemental Instruction}
+\author{Cooper McAllister}
+\date{January 9 2026}
+\begin{document}
+\maketitle
+\section{Source Transformation}
+Source Transformation is a technique used to change a voltage source into a current source and vice versa. These transformations can sometimes make analyzing a circuit easier.
+\\ A voltage source in series with a resistor can be transformed into a current source in parallel with a resistor. Ohm's Law is used to calculate the value of the current source. The value of the resistor does not change. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$v_s$] (0, 3) to[R=$R$] (3, 3) to[short, f=$i$] (4, 3) to[open, v=$v$] (4, 0) -- (0, 0)
+;
+\end{circuitikz}
+$\qquad \Longrightarrow \qquad$
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$i_s{=}\frac{v_s}{R}$] (0, 3) -- (2, 3) to[R=$R$] (2, 0) (2, 3) to[short, f=$i$] (4, 3) to[open, v=$v$] (4, 0) -- (0, 0)
+;
+\end{circuitikz} \\ \\
+Similarly, a current source in parallel with a resistor can be transformed into a voltage source in series with a resistor. Ohm's Law is used to calculate the value of the voltage source. The value of the resistor does not change. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$i_s$] (0, 3) -- (2, 3) to[R=$R$] (2, 0) (2, 3) to[short, f=$i$] (4, 3) to[open, v=$v$] (4, 0) -- (0, 0)
+;
+\end{circuitikz}
+$\qquad \Longrightarrow \qquad$
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$v_s{=}i_sR$] (0, 3) to[R=$R$] (3, 3) to[short, f=$i$] (4, 3) to[open, v=$v$] (4, 0) -- (0, 0)
+;
+\end{circuitikz}
+
+\section{Superposition}
+Superposition can be applied to any linear system, including the circuits discussed in this class (it does not apply to circuits with nonlinear components, such as diodes or transistors). In general, superposition states that if $Y(r)$ is a linear system, then $Y(a + b) = Y(a) + Y(b)$. In practice, for circuits, if we have a circuit with multiple sources, superposition lets us find the response of the circuit to only one source a time and add the results to find the overall response.
+\\For example, we can use superposition to find $I_x$: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5\textrm{V}$] (0, 3) to[R=$2\Omega$] (3, 3) to[R=$3\Omega$, f=$I_x$] (3, 0)
+(0, 0) -- (6, 0) to[R=$3\Omega$] (6, 3) to[isource, l=$2\textrm{A}$] (3, 3)
+;
+\end{circuitikz} \\ \\
+First we will ``turn  off'' the current source by setting it to zero. The circuit now becomes \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5\textrm{V}$] (0, 3) to[R=$2\Omega$] (3, 3) to[R=$3\Omega$, f=$I_{x1}$] (3, 0) -- (0, 0)
+;
+\end{circuitikz} \\ \\
+And the current can be found using Ohm's Law:
+$$I_{x,1} = \frac{5\textrm{V}}{2\Omega + 3\Omega} = 1\textrm{A}$$
+Next, we will ``turn off'' the voltage source by setting it to zero. The circuit now becomes \\ \\
+\begin{circuitikz}[american] \draw
+(0, 3) to[R=$3\Omega$, f=$I_{x2}$] (0, 0)
+(0, 0) -- (3, 0) to[R=$3\Omega$] (3, 3) to[isource, l=$2\textrm{A}$] (0, 3)
+;
+\end{circuitikz} \\ \\
+$I_{x2}$ can be found directly as 2A.
+\\ We can now sum the two results:
+$$I_x = I_{x1} + I_{x2} = 1A + 2A = 3A$$
+\section{Thevenin's Theorem}
+Thevenin's Theorem states that any two-terminal network containing resistors and sources can be replaced with a single voltage source in series with a resistor. \\ \\
+\begin{circuitikz}[american] \draw
+(3, 3) to[short, -*, f=$I$] (4, 3) to[open, v=$V$] (4, 0) to[short, *-] (3, 0)
+(-0.25, 3.25) -- (3, 3.25) -- (3, -0.25) -- (-0.25, -0.25) -- (-0.25, 3.25);
+\node[draw=none] at (1.5, 1.5) {$\textrm{Network}$};
+\end{circuitikz} 
+$\qquad \Longrightarrow \qquad$
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$V_{th}$] (0, 3) to[R=$R_{th}$] (3, 3) to[short, -*, f=$I$] (4, 3) to[open, v=$V$] (4, 0) to[short, *-] (0, 0)
+;
+\end{circuitikz} \\ \\
+Where
+\\ $V_{th}$ is the open circuit voltage, or the voltage accross the network when no current flows into or out of the network: \\ \\
+\begin{circuitikz}[american] \draw
+(3, 3) to[short, -*, f=$I{=}0$] (4, 3) to[open, v=$V_{th}$] (4, 0) to[short, *-] (3, 0)
+(-0.25, 3.25) -- (3, 3.25) -- (3, -0.25) -- (-0.25, -0.25) -- (-0.25, 3.25);
+\node[draw=none] at (1.5, 1.5) {$\textrm{Network}$};
+\end{circuitikz} \\ \\
+And
+\\ $R_{th}$ is the resistance of the network when every \textit{independent} source is set to 0. Dependent sources are not set to zero. \\ \\
+\begin{circuitikz}[american] \draw
+(3, 3) to[short, -*] (4, 3) to[open] (4, 0) to[short, *-] (3, 0)
+(-0.25, 3.25) -- (3, 3.25) -- (3, -0.25) -- (-0.25, -0.25) -- (-0.25, 3.25)
+(1, 0.5) to[vsource, invert, l=$0\textrm{V}$] (1, 2.5) (2, 0.5) to[isource, l_=$0\textrm{A}$] (2, 2.5);
+\draw (5, 1.5) -- (4.5, 1.5) [->];
+\node[draw=none] at (1.5, 0.25) {$\textrm{Network}$};
+\node[draw=none] at (5.5, 1.5) {$R_{th}$};
+\end{circuitikz} \\ \\
+\subsection{Norton's Theorem}
+The Norton equivalent circuit is the source transformation of the Thevenin equivalent. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$I_N{=}\frac{V_{th}}{R_{th}}$] (0, 3) -- (2, 3) to[R=$R$] (2, 0) (2, 3) to[short, f=$I$] (4, 3) to[open, v=$V$] (4, 0) -- (0, 0)
+;
+\end{circuitikz} \\ \\
+Alternatively, $I_N$ can be found as the short-circuit current of the network, or the current flowing out of the network when its terminals are shorted: \\ \\
+\begin{circuitikz}[american] \draw
+(3, 3) to[short, -*] (4, 3) to[short] (5, 3) to[short, f=$I_N$] (5, 0) to[short] (4, 0) to[short, *-] (3, 0)
+(-0.25, 3.25) -- (3, 3.25) -- (3, -0.25) -- (-0.25, -0.25) -- (-0.25, 3.25);
+\node[draw=none] at (1.5, 1.5) {$\textrm{Network}$};
+\end{circuitikz} \\ \\
+\section{Nodal Analysis}
+Nodal Analysis is a general method that can be used to solve any circuit with multiple unknown voltages or currents. For Nodal Analysis, equations are written using \textbf{KCL} in terms of \textbf{nodal voltages} defined with respect to a common reference.
+\\Before showing an example of Nodal Analysis, it is helpful to show how to express the current through a resistor with a voltage at each end: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 3) to[R=$R$, f=$I$] (3, 3) to[open, v=$V_b$] (3, 0) to[short] (0, 0) to[open, v<=$V_a$] (0, 3)
+(1.5, 0) node[ground]{}
+;
+\end{circuitikz} \\ \\
+In the above case,
+$ I=\frac{V_a-V_b}{R}$. This can be easily seen using KVL and Ohm's Law. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 3) to[R=$R$, f<=$I_2$] (3, 3) to[open, v=$V_d$] (3, 0) to[short] (0, 0) to[open, v<=$V_c$] (0, 3)
+(1.5, 0) node[ground]{}
+;
+\end{circuitikz} \\ \\
+In the above case,
+$ I_2=\frac{V_d-V_c}{R}$. 
+\\ In both cases, we write first the voltage where the current enters, and then subtract the voltage where the current leaves. We will use currents written this way to write KCL equations when performing Nodal Analysis.
+\\ The general procedure for Nodal Analysis is:
+\begin{enumerate}
+\item Choose a node to use as the ground reference
+\item Name and draw voltages for every node except for the reference
+\item Write the KCL equation for every node except for the reference, in terms of the nodal voltages
+\item Solve the resulting system of equations
+\end{enumerate}
+We will use the following circuit to demonstrate Nodal Analysis. Our goal is to find $V_z$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R=$2\Omega$] (0, 3) to[isource, l=$1\textrm{A}$] (0, 6) to[short] (3, 6) to[R=$6\Omega$](3, 3) to[isource, invert, l=$2\textrm{A}$] (3, 0) to[short] (0, 0)
+(3, 6) to[short] (6, 6) to[R=$3\Omega$, v=$V_z$] (6, 3) to[short] (6, 0) to[short] (3, 0)
+(0, 3) to[R=$1\Omega$] (3, 3) to[R=$4\Omega$] (6, 3)
+;
+\end{circuitikz} \\ \\
+Step (1): We choose a reference node - we will use the bottom node: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R=$2\Omega$] (0, 3) to[isource, l=$1\textrm{A}$] (0, 6) to[short] (3, 6) to[R=$6\Omega$](3, 3) to[isource, invert, l=$2\textrm{A}$] (3, 0) to[short] (0, 0)
+(3, 6) to[short] (6, 6) to[R=$3\Omega$, v=$V_z$] (6, 3) to[short] (6, 0) to[short] (3, 0)
+(0, 3) to[R=$1\Omega$] (3, 3) to[R=$4\Omega$] (6, 3)
+(3, 0) node[ground]{}
+;
+\end{circuitikz} \\ \\
+Step (2): We draw the nodal voltages. This circuit has four nodes total. $V_z$ is already in the diagram, so we only need to add two voltages, which we will name $V_x$ and $V_y$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R=$2\Omega$, v<=$V_x$] (0, 3) to[isource, l=$1\textrm{A}$] (0, 6) to[short] (3, 6) to[R=$6\Omega$](3, 3) to[isource, invert, l=$2\textrm{A}$, v>=$V_y$] (3, 0) to[short] (0, 0)
+(3, 6) to[short] (6, 6) to[R=$3\Omega$, v=$V_z$] (6, 3) to[short] (6, 0) to[short] (3, 0)
+(0, 3) to[R=$1\Omega$] (3, 3) to[R=$4\Omega$] (6, 3)
+(3, 0) node[ground]{}
+;
+\end{circuitikz} \\ \\
+Step (3): We write the KCL equation for every node except the reference, in this case $V_x$, $V_y$, and $V_z$. We will write the equations with zero on the right side. We will use $+$ for currents entering a node and $-$ for currents leaving.
+\\ For the node of voltage $V_x$:
+$$\frac{V_y - V_x}{1\Omega} + \frac{0 - V_x}{2\Omega} - 1\textrm{A} = 0$$
+\\ For the node of voltage $V_y$:
+$$\frac{V_x - V_y}{1\Omega} + \frac{V_z - V_y}{6\Omega} + \frac{0-V_y}{4\Omega} + 2\textrm{A} = 0$$
+\\ For the node of voltage $V_z$:
+$$1\textrm{A} + \frac{V_y - V_z}{6\Omega} + \frac{0 - V_z}{3\Omega} = 0$$
+A helpful way to verify these equations is to observe that in each equation, the voltage of the node where that equation was written always has the same sign (when written on the same side of the equation). For example, in the equation for the node of voltage $V_y$, $V_y$ is always negative.
+\\ Step (4): At this point, we have three equations with three unknowns, so we can use any algebra method we like to solve the system.
+\\The solution is $V_x = \frac{14}{15}$ V, $V_y = \frac{12}{5}$ V, and $V_z = \frac{14}{5}$ V.
+
+\section{Mesh Analysis}
+Mesh Analysis is a general method that can be used to solve most circuits with multiple unknown voltages or currents. Mesh Analysis only applies to \textit{planar} circuits, or circuits that can be drawn on a flat piece of paper without any branches overlapping. Most circuits we will study in this class are planar, but this caveat is helpful to keep in mind in the event Mesh Analysis fails.
+\\ For Mesh Analysis, equations are written using KVL in terms of \textbf{mesh currents}. Mesh currents are currents drawn for each mesh, which is a loop that does not contain any other loops. Mesh currents do not have a direct physical meaning, but are used to solve for actual voltages and currents.
+\\It is important to note that when multiple mesh currents are flowing through the same branch, the branch current is the algebraic sum of the mesh currents, using $+$ for currents flowing in the same direction and $-$ for currents flowing in the opposite direction:\\ \\
+\begin{circuitikz}[american] \draw
+(0.5, 0) to[R, f=$I_x$] (0.5, 3);
+\draw(-0.5, 0.5) arc(-60:60:1) [->];
+\draw(1.5, 2.3) arc(120:240:1) [->];
+\node[draw=none] at (-0.5, 1.5) {$i_1$};
+\node[draw=none] at (1.5, 1.5) {$i_2$};
+\end{circuitikz}
+$I_x = i_1 - i_2$\\ \\
+Additionally, the math will be easier if all mesh currents are drawn in the same direction (clockwise or counterclockwise).
+\\ The general procedure for Mesh Analysis is:
+\begin{enumerate}
+\item Name and draw mesh currents for each mesh
+\item Write the KVL equation for each mesh, in terms of the mesh currents
+\item Solve the resulting system of equations
+\end{enumerate}
+We will use the following circuit to demonstrate Mesh Analysis. Our goal is to find \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R=$1\Omega$, f<=$I_1$] (0, 6) to[short] (3, 6) to[vsource, l=$12\textrm{V}$] (3, 3) to[R=$3\Omega$] (3, 0) to[short] (0, 0)
+(3, 6) to[R=$6\Omega$] (7, 6) to[short] (7, 3) to[R=$2\Omega$] (3, 3)
+(7, 3) to[R=$4\Omega$] (7, 0) to[vsource, l=$4\textrm{V}$] (3, 0)
+;
+\end{circuitikz} \\ \\
+Step (1): We draw mesh currents for each mesh flowing clockwise: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R=$1\Omega$, f<=$I_1$] (0, 6) to[short] (3, 6) to[vsource, l=$12\textrm{V}$] (3, 3) to[R=$3\Omega$] (3, 0) to[short] (0, 0)
+(3, 6) to[R=$6\Omega$] (7, 6) to[short] (7, 3) to[R=$2\Omega$] (3, 3)
+(7, 3) to[R=$4\Omega$] (7, 0) to[vsource, l=$4\textrm{V}$] (3, 0)
+;
+\draw(1.5, 2.6) arc(270:45:0.5) [->]; \node[draw=none] at (1.5, 3) {$i_a$};
+\draw(5, 4.1) arc(270:45:0.5) [->]; \node[draw=none] at (5, 4.5) {$i_b$};
+\draw(5, 1.1) arc(270:45:0.5) [->]; \node[draw=none] at (5, 1.5) {$i_c$};
+\end{circuitikz} \\ \\
+Step (2): We write the KVL equation for each mesh. We will start at the upper left hand corner of each mesh and sum the voltages going clockwise.
+\\ For the mesh $i_a$:
+$$12\textrm{V} + 3\Omega(i_a - i_c) + 1\Omega(i_a) = 0$$
+\\ For the mesh $i_b$:
+$$6\Omega(i_b) + 2\Omega(i_b - i_c) - 12\textrm{V} = 0$$
+\\ For the mesh $i_c$:
+$$2\Omega(i_c - i_b) + 4\Omega(i_c) + 4\textrm{V} + 3\Omega(i_c - i_a) = 0$$
+\\ Step (3): At this point, we have three equations with three unknowns, so we can use any algebra method we like to solve the system.
+\\ The solution is $i_a=\frac{-21}{5}$ A, $i_b=\frac{11}{10}$ A, and $i_c=\frac{-8}{5}$ A.
+\\ We can now find $I_1 = -i_a = \frac{21}{5}$ A.
+\end{document}
+
+
+
+

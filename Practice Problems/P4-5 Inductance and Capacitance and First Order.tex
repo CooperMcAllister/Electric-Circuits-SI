@@ -1,0 +1,115 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\title{Practice Problems: \\Inductance and Capacitance \\  \large Introduction to Electric Circuits \\ Supplemental Instruction}
+\author{Cooper McAllister}
+\date{April 2 2026}
+\begin{document}
+\fancypagestyle{footerstyle} {
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[L]{\textit{For personal study and students leading supplemental instruction, \\ with attribution given to the author. \\ Find more at coopermcallister.com}}
+	\fancyfoot[R]{\thepage}
+}
+\pagestyle{footerstyle}
+\maketitle
+\thispagestyle{footerstyle}
+
+\begin{center}
+\textit{This document is not a substitute for a textbook or classroom instruction. It may contain errors and is intended to be used only to the extent that it is helpful to supplement students' learning experience.}
+\end{center}
+
+
+\section{Capacitor Combinations}
+Find the total capacitance as seen from the source. \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[battery, invert] (0, 3) to[short] (3, 3) to[C, l=$10\mu \textrm{F}$] (6, 3) to[short] (9, 3) to[short] (9, 0) to[C, l=$100 \textrm{nF}$] (6, 0) to[short] (0, 0)
+(6, 0) to[C, l=$22 \textrm{nF}$] (2, 3) (6, 0) to[C, l=$5 \textrm{pF}$] (6, 3)
+;
+\end{circuitikz}
+\subsection*{Solution}
+The two capacitors on the right can be combined in parallel: $500\textrm{pF} + 100\textrm{nF} = 100.5\textrm{nF}$. This can then be combined in series with the capacitor on the top: $\frac{1}{\frac{1}{100.5\textrm{nF}} + \frac{1}{10\textrm{uF}}} = 99.5 \textrm{nF}$. Finally, combining in parallel with the $22\textrm{nF}$ capacitor: $99.5\textrm{nF} + 22\textrm{nF} = 121.5\textrm{nF}$.
+
+\section*{Capacitor Charge Given Voltage}
+Find the total charge stored by the capacitors, $V_2$, and $V_3$. \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[battery] (0, 3) to[C, l=$12\mu\textrm{F}$, v=$2\textrm{V}$] (3, 3) to[C, l=$56\mu\textrm{F}$, v=$V_2$] (6, 3) to[C, l=$0.1\mu\textrm{F}$, v=$V_3$] (6, 0) to[short] (0, 0)
+;
+\end{circuitikz}
+\subsection*{Solution}
+The charge on the leftmost capacitor can be found as $Q = CV = 12\mu\textrm{F}\cdot2\textrm{V} = 24\mu\textrm{C}$. Since the charge is the same across series capacitors, we can find immediately $V_2 = \frac{24\mu\textrm{C}}{56\mu\textrm{F}} = 428 \textrm{mV}$, and $V_3 = \frac{24\mu\textrm{C}}{0.1\mu\textrm{F}} = 240 \textrm{V}$.
+
+\section{RC Circuit Response}
+The switch is closed for a long time and then it is opened at $t=0$. Find (a) the equation of the voltage across the capacitor after the switch opens (b) the instantaneous voltage across the capacitor at $t = 5\textrm{ms}$, and (c) the time that it will take for the capacitor to be fully discharged. \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$9\textrm{V}$] (0, 3) to[cute opening switch, l=$t{=}0$] (3, 3) to[short] (6, 3) to[C, l=$10\mu\textrm{F}$, v=$V_c(t)$] (6, 0) to[short] (0, 0) 
+(3, 0) to[R, l=$2.2\textrm{k}\Omega$] (3, 3)
+;
+\end{circuitikz}
+\subsection*{Solution}
+The time constant can be found as $\tau = RC = 2.2\textrm{k}\Omega\cdot10\mu\textrm{F} = 22 \textrm{ms}$.
+\\Before the switch is opened, at $t=0^-$, the capacitor is an open circuit: \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$9\textrm{V}$] (0, 3) to[short] (3, 3) to[short] (6, 3) to[open, v=$V_c(0^-)$] (6, 0) to[short] (0, 0) 
+(3, 0) to[R, l=$2.2\textrm{k}\Omega$] (3, 3)
+;
+\end{circuitikz} \\ \\
+$V_c(0^-) = 9\textrm{V}$. Since the voltage of a capacitor cannot change instantly, $V_c(0^+) = V_c(0^-) = 9\textrm{V}$.
+\\ After the switch has been open for a long time, the capacitor is again an open circuit: \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$9\textrm{V}$] (0, 3) to[open] (3, 3) to[short] (6, 3) to[open, v=$V_c(\infty)$] (6, 0) to[short] (0, 0) 
+(3, 0) to[R, l=$2.2\textrm{k}\Omega$] (3, 3)
+;
+\end{circuitikz} \\ \\
+$V_c(\infty) = 0\textrm{V}$.
+\\ Therefore, the voltage across the capacitor over time can be found as $V_c(t) = (V_c(0^+) - V_c(\infty))e^{\frac{-t}{\tau}} + V_c(\infty) \Rightarrow V_c(t) = (9\textrm{V} - 0\textrm{V})e^{\frac{-t}{22\textrm{ms}}} + 0\textrm{V} = 9\cdot e^{\frac{-t}{22\textrm{ms}}} \textrm{V}$ (part a).
+\\ At $t=5\textrm{ms}$, the voltage is $V_c(5\textrm{ms}) = 9\cdot e^{\frac{-5\textrm{ms}}{22\textrm{ms}}} \ \textrm{V} = 7.17 \ \textrm{V}$ (part b).
+\\ The capacitor will be fully discharged after $5\tau = 5\cdot 22\textrm{ms} = 110\textrm{ms}$ (part c).
+
+\section{RC Circuit Response}
+Find the value of $R$ so that the circuit will have a time constant of $\tau = 5\textrm{ms}$, and find the equation of $V_c(t)$ for $t>0$ using that value of $R$. \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$15\textrm{V}$] (0, 3) to [R=$R$] (3, 3) to[cute closing switch, l=$t{=}0$] (6, 3) to[C=$25\textrm{nF}$, v=$V_c(t)$] (6, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+R can be found as $\frac{\tau}{C} = \frac{5\textrm{ms}}{25\textrm{nF}} = 200\textrm{k}\Omega$.
+\\Next, we'll redraw the circuit at $t=0^-$, and replace the capacitor with an open circuit: \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$15\textrm{V}$] (0, 3) to [R=$200\textrm{k}\Omega$] (3, 3) to[open, o-o] (5, 3) to[short] (6, 3) to[open, o-o, v=$V_c(0^-)$] (6, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+The capacitor is not connected on the top, so $V_c(0^-) = V_c(0^+) = 0\textrm{V}$.
+Next, we'll redraw the circuit at $t=\infty$, again at steady state: \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$15\textrm{V}$] (0, 3) to [R=$200\textrm{k}\Omega$] (3, 3) to[short] (6, 3) to[open, o-o, v=$V_c(\infty)$] (6, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+There is current flowing through the resistor, so $V_c(\infty) = 15\textrm{V}$.
+\\Now we can substitute the values we found into the first order response equation: \\
+$V_c(t) = (V_c(0^+) - V_c(\infty))e^{\frac{-t}{\tau}} + V_c(\infty) \Rightarrow V_c(t) = [ (0 - 15)e^\frac{-t}{5\textrm{ms}} + 15 ] \ \textrm{V} = [-15e^\frac{-t}{5\textrm{ms}} + 15 ] \ \textrm{V}$.
+
+
+\newpage
+\section*{References}
+\begin{itemize}
+\item M. Iordache. Class Lectures, Topic: ``Electric circuits.'' EEGR 2053, School of Engineering and Engineering Technology, LeTourneau University, 2025.
+\item M. Iordache. 2024. EEGR 2053 Electric circuits [PowerPoint slides]. Available: \\ https://mviordache.name/EEGR2053/index.html
+\item T. L. Floyd and D. M. Buchla, Principles of Electric Circuits: Conventional Current, 10th ed. Hoboken, NJ: Pearson Education, 2020.
+\item O. Ortiz. 2025. ENGR 2053 Intro to electric circuits [PowerPoint slides].
+\end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+

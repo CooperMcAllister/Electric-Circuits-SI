@@ -1,0 +1,237 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\title{2. Laws and Simple Circuits \\  \large Introduction to Electric Circuits \\ Supplemental Instruction}
+\author{Cooper McAllister}
+\date{January 14 2026}
+\begin{document}
+\fancypagestyle{footerstyle} {
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[L]{\textit{For personal study and students leading supplemental instruction, \\ with attribution given to the author. \\ Find more at coopermcallister.com}}
+	\fancyfoot[R]{\thepage}
+}
+\pagestyle{footerstyle}
+\maketitle
+\thispagestyle{footerstyle}
+\section{Introduction}
+\begin{center}
+\textit{This document is not a substitute for a textbook or classroom instruction. It may contain errors and is intended to be used only to the extent that it is helpful to supplement students' learning experience.}
+\end{center}
+Now that you understand the basic terms and diagrams used in circuits, you can start learning circuit analysis! Ohm's Law and Kirchhoff's Laws are the foundation for all of Circuits. A solid understanding of these concepts is required for success in more complex circuit analysis. This unit also covers ways to combine resistors and sources to simplify circuits and make them easier to analyze. The last section covers voltage and current division, which are formulas that will come in handy in many places. Do your best to iron out any confusion with these topics as early as possible so that you'll be prepared to move on to more complicated analysis.
+
+\section{Ohm's Law and Kirchhoff's Laws}
+\subsection{Ohm's Law}
+Ohm's Law describes the relationship between voltage and current in resistors. Ohm's Law is:
+$$V = IR$$
+The sign is the same as that of the voltage where the current enters the resistor: \\ \\ 
+\begin{circuitikz}[american] \draw
+(0, 0) to[short, f=$i$] (1, 0) to[R=$R$, v=$v$] (3, 0)
+;
+\end{circuitikz}
+$\quad v = iR$
+\\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R=$R$, v=$v$] (2, 0) to[short, f<=$i'$] (3, 0)
+;
+\end{circuitikz}
+$\quad v = -i'R$ \\ \\
+For example, \\ \\ 
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$250 \ \textrm{mA}$] (0, 3) -- (2, 3) to[R=$20\Omega$, v=$v_x$] (2, 0) -- (0, 0)
+;
+\end{circuitikz} \\ \\
+The voltage can be found as
+$$v_x = 250 \textrm{mA} \cdot 20\Omega = 5 \ \textrm{V}$$
+Ohm's Law is commonly rearranged to solve for current or resistance:
+$$I = \frac{V}{R}$$
+$$R = \frac{V}{I}$$
+\subsection{Kirchhoff's Voltage Law}
+Kirchhoff's Voltage Law (KVL) describes currents in a loop. A loop is a sequence of points in space where the first and last points are the same. KVL states that \textbf{the algebraic sum of all voltages in a closed loop is 0}: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[open, *-*, v=$v_1$] (0, 3)
+to[open, *-*, v=$v_2$] (3, 3)
+to[open, *-*, v=$v_3$] (6, 3)
+to[open, *-*, v=$v_4$] (6, 0)
+to[open, *-*, v=$...$] (3, 0)
+to[open, *-*, v=$v_n$] (0, 0)
+;
+\draw (0.4, 0.6) -- (0.4, 2.4) arc(180:90:0.2) -- (5.4, 2.6) arc(90:0:0.2)  -- (5.6, 0.6) arc(0:-90:0.2)  -- (0.6, 0.4)  [->] %node at(1,1){$Direction of Summation$};
+;
+\end{circuitikz} \\ \\
+$v_1 + v_2 + v_3 + v_4 + \cdots + v_n = 0$ \\ \\
+In the diagram above, the arrow indicates the direction of the loop, and the line represents the loop (the loop is not a wire, just a symbol showing how the voltages are summed). When writing the summation, the sign of each voltage is the same as the sign of that voltage that's first encountered when following the path.
+\\ An easy way to write KVL, when solving for an unknown voltage, is to start at the $+$ of the unknown voltage and draw a path that ends at the $-$ of the unknown voltage. The unknown voltage is equal to the algebraic sum of the voltages along the path.
+\\ A loop can be any shape, go in any direction, or even overlap itself, as long as the start and end points are the same.
+\\ Here is a more complex example of KVL: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[open, *-*, v=$v_a$] (0, 3)
+to[open, *-*, v=$v_b$] (3, 5)
+to[open, *-*, v<=$v_c$] (2.5, 2)
+to[open, *-*, v<=$v_d$] (6, 2.5)
+to[open, *-*, v=$v_e$] (3, 0.5)
+to[open, *-*, v<=$v_f$] (0, 0)
+;
+\end{circuitikz} \\ \\
+Taking the summation clockwise, starting at the top:
+$-v_c - v_d + v_e - v_f + v_a + v_b = 0$
+\\ Or, if we wanted to solve for $v_a$, we would start at the $+$ of $v_a$ and take the summation counter-clockwise until we returned to the $-$ of $v_a$:
+$v_a = v_f - v_e + v_d + v_c - v_b$
+\\ \\ In these examples, the dots represent any points in space. Often we use nodes in a circuit as points when writing KVL, because the voltage is constant within a node.
+\subsection{Kirchhoff's Current Law}
+Kirchhoff's Current Law (KCL) states that \textbf{the sum of currents entering a component, node, or network is equal to the sum of currents exiting} (a network is essentially just some larger circuit inside a ``black box''). \\ \\
+\begin{circuitikz}[american] \draw 
+(0, 4) to[short, f=$I_{i1}$] (1, 4)
+(0, 3) to[short, f=$I_{i2}$] (1, 3)
+(0, 0) to[short, f=$I_{im}$] (1, 0);
+\node[draw=none] at (0.5, 2) {$\vdots$};
+\draw
+(5, 4) to[short, f=$I_{o1}$] (6, 4)
+(5, 3) to[short, f=$I_{o2}$] (6, 3)
+(5, 0) to[short, f=$I_{ok}$] (6, 0);
+\node[draw=none] at (5.5, 2) {$\vdots$};
+\draw
+(1, -0.25) -- (1, 4.25) -- (5, 4.25) -- (5, -0.25) -- (1, -0.25);
+\node[draw=none] at (3, 2) {$\textrm{Network or Node}$};
+\end{circuitikz} \\ \\
+$I_{i1} + I_{i2} + \cdots + I_{im} = I_{o1} + I_{o2} + \cdots + I_{ok}$
+\\ \\ It is also possible to write all currents on the same side of the equation, and use the signs to show the direction. If we use $+$ for currents entering, currents leaving will have a $-$:
+\\ $I_{i1} + I_{i2} + \cdots + I_{im} - I_{o1} - I_{o2} - \cdots - I_{ok} = 0$
+\\ Or, if we use $+$ for currents leaving and $-$ for currents entering:
+\\ $I_{o1} + I_{o2} + \cdots + I_{ok} - I_{i1} - I_{i2} - \cdots - I_{im} = 0$
+\section{Resistance and Source Combination}
+\subsection{Resistor Combinations}
+Using just two simple formulas, it is possible to simplify any finite resistor network into a single resistor.
+\subsubsection{Series Resistor Combinations}
+When resistors are combined in series, they are simply added: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[open, v<=$v$] (0, 2) to[short, f=$i$] (1, 2) to[R=$R_1$] (3, 2) to[R=$R_2$] (5, 2) to[open] (7, 2) to[R=$R_n$] (9, 2)
+-- (9, 0) -- (0, 0);
+\node[draw=none] at (6, 2) {$\cdots$};
+\end{circuitikz}
+$\qquad \Longrightarrow \qquad$
+\begin{circuitikz}[american] \draw
+(0, 0) to[open, v<=$v$] (0, 2) to[short, f=$i$](1, 2) to[R=$R_{eq}$] (3, 2) 
+-- (3, 0) -- (0, 0)
+;
+\end{circuitikz} \\ \\
+$$R_{eq} = R_1 + R_2 + \cdots + R_n = \frac{v}{i}$$
+\subsubsection{Parallel Resistor Combinations}
+When resistors are combined in parallel, their conductances are added: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[open, v<=$v$] (0, 2) to[short, f=$i$](1, 2) to[R=$R_1$] (1, 0) (3, 2) to[R=$R_2$] (3, 0) (7, 2) to[R=$R_n$] (7, 0)
+(7, 2) -- (1, 2) (7, 0) -- (0, 0);
+\node[draw=none] at (5, 1) {$\cdots$};
+\end{circuitikz}
+$\qquad \Longrightarrow \qquad$
+\begin{circuitikz}[american] \draw
+(0, 0) to[open, v<=$v$] (0, 2) to[short, f=$i$](1, 2) to[R=$R_{eq}$] (3, 2) 
+-- (3, 0) -- (0, 0)
+;
+\end{circuitikz} \\ \\
+$$\frac{1}{R_{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + \cdots + \frac{1}{R_n}$$
+Which can be rewritten as
+$$R_{eq} = \frac{1}{\frac{1}{R_1} + \frac{1}{R_2} + \cdots + \frac{1}{R_n} }= \frac{v}{i}$$
+Another way of finding the equivalent resistance when there are \textit{only two} resistors is to use the formula
+$$R_{eq} = \frac{R_1R_2}{R_1 + R_2}$$
+This formula cannot be expanded for more than two resistors.
+\subsection{Series Source Combinations}
+Voltage sources can be combined in series. Their voltages are added by KVL. \\ \\
+\begin{circuitikz}[american] \draw
+(2, 0) to[open, v<=$v_{tot}$] (2, 8) to[short, f<_=$i$] (0, 8) to[vsource, l=$v_1$] (0, 6) to[vsource, l=$v_2$] (0, 4) to[open] (0, 2) to[vsource, l=$v_n$] (0, 0)
+-- (2, 0);
+\node[draw=none] at (0, 3) {$\vdots$};
+\end{circuitikz}
+$\qquad \Longrightarrow \qquad$
+\begin{circuitikz}[american] \draw
+(2, 0) to[open, v<=$v_{tot}$] (2, 8) to[short, f<_=$i$] (0, 8) to[vsource, l=$v_{tot}$] (0, 0)
+-- (2, 0);
+\end{circuitikz}
+$$v_{tot} = v_1 + v_2 + \cdots + v_n$$
+\subsection{Parallel Source Combinations}
+Current Sources can be combined in parallel. Their currents are added by KCL. \\ \\
+\begin{circuitikz}[american] \draw
+(7, 0) to[open, v<=$v$] (7, 2) to[short, f<_=$i_{tot}$](5, 2) to[isource, invert, l=$i_n$] (5, 0) (2, 2) to[isource, invert,l=$i_2$] (2, 0) (0, 2) to[isource, invert,l=$i_1$] (0, 0)
+(5, 2) -- (0, 2) (7, 0) -- (0, 0);
+\node[draw=none] at (3.6, 1) {$\cdots$};
+\end{circuitikz}
+$\qquad \Longrightarrow \qquad$
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$i_{tot}$] (0, 2) to[short, f=$i_{tot}$] (3, 2) to[open, v=$v$] (3, 0) -- (0, 0);
+\end{circuitikz} \\ \\
+$$i_{tot} = i_1 + i_2 + \cdots + i_n$$
+\subsection{Invalid Source Combinations}
+For ideal sources, voltage sources of different values cannot be combined in parallel, and current sources of different values cannot be combined in series. If this was tried in real life, the value of one would be forced to change to equal the other (potentially in a destructive manner if the difference was large and the sources were powerful). \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5\textrm{V}$] (0, 3) (3, 0) to[vsource, invert, l=$10\textrm{V}$] (3, 3)
+(0, 3) -- (4, 3) (0, 0) -- (4, 0);
+\draw[red] (-0.7, -0.5) -- (4.1, 3.5);
+\draw[red] (-0.7, 3.5) -- (4.1, -0.5);
+\end{circuitikz}
+$\qquad \qquad$
+\begin{circuitikz}[american] \draw
+(0, 2) to[isource, l=$2\textrm{A}$] (3, 2) to[isource, l=$4\textrm{A}$] (6, 2);
+\draw[red] (-0.5, 0) -- (6.5, 4);
+\draw[red] (-0.5, 4) -- (6.5, 0);
+\end{circuitikz} \\ \\
+\section{Voltage and Current Division}
+It is possible to solve for any unknown voltage or current using only Ohm's Law and Kirchhoff's Laws. However, there are some formulas derived from these laws that help us easily find voltages of series components and currents of parallel components.
+\subsection{Voltage Division}
+When resistors are in series, the total voltage is divided between them. Each has a certain voltage, and the sum of the voltages equals the total voltage: $v = v_1 + v_2 + \cdots  v_n$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[open, v<=$v$] (0, 8) to[short] (2, 8) to[R=$R_1$, v=$v_1$] (2, 6) to[R=$R_2$, v=$v_2$] (2, 4) to[open] (2, 2) to[R=$R_n$ , v=$v_n$] (2, 0)
+-- (0, 0);
+\node[draw=none] at (2, 3) {$\vdots$};
+\end{circuitikz} \\ \\
+Voltage Division states that
+$$v_x = v\cdot\frac{R_x}{R_1 + R_2 + \cdots + R_n}$$
+For example, to find $v_1$:
+$$v_1 = v\cdot\frac{R_1}{R_1 + R_2 + \cdots + R_n}$$
+Intuitively, the voltage drop for a single resistor will be larger if it is larger compared to the others.
+\subsection{Current Division}
+When resistors are in parallel, the total current is divided between them. Each one takes some of the current, and the sum of the currents equals the total current: $i=i_1 + i_2 + \cdots + i_n$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[open, v<=$v$] (0, 3) to[short, f=$i$](2, 3) to[R=$R_1$, f=$i_1$] (2, 0) (4, 3) to[R=$R_2$, f=$i_2$] (4, 0) (8, 3) to[R=$R_n$, f=$i_n$] (8, 0)
+(8, 3) -- (2, 3) (8, 0) -- (0, 0);
+\node[draw=none] at (6, 1.5) {$\cdots$};
+\end{circuitikz} \\ \\
+Current Division states that
+$$i_x = i \cdot\frac{\frac{1}{R_x}}{\frac{1}{R_1} +\frac{1}{R_2} + \cdots + \frac{1}{R_n}}$$
+This is the same as the voltage divider equation, but every resistance is replaced with its reciprocal.\\
+For example, to find $i_2$:
+$$i_2 = i \cdot\frac{\frac{1}{R_2}}{\frac{1}{R_1} +\frac{1}{R_2} + \cdots + \frac{1}{R_n}}$$
+Intuitively, more current will flow through a resistor if it is smaller compared to the others.
+\\ Another way of writing the Current Division equation is
+$$i_x = i \cdot\frac{R_{eq}}{R_x} \quad \textrm{where} \quad R_{eq} = \frac{1}{\frac{1}{R_1} + \frac{1}{R_2} + \cdots + \frac{1}{R_n} } $$
+A third way to write Current Division for \textit{only two} resistors is
+$$i_1 = i \cdot\frac{R_2}{{R_1 + R_2}}$$
+It is a good idea to convince yourself that these three equations are equivalent. It is best to pick one and use it consistently, but it is helpful to be able to recognize the others. 
+
+\newpage
+\section*{References}
+\begin{itemize}
+\item M. Iordache. Class Lectures, Topic: ``Electric circuits.'' EEGR 2053, School of Engineering and Engineering Technology, LeTourneau University, 2024.
+\item M. Iordache. 2024. EEGR 2053 Electric circuits [PowerPoint slides]. Available: \\ https://mviordache.name/EEGR2053/index.html
+\item T. L. Floyd and D. M. Buchla, Principles of Electric Circuits: Conventional Current, 10th ed. Hoboken, NJ: Pearson Education, 2020.
+\item O. Ortiz. 2025. ENGR 2053 Intro to electric circuits [PowerPoint slides].
+\end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

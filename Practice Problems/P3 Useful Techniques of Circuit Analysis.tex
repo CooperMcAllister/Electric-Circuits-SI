@@ -1,0 +1,284 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\title{Practice Problems: \\Useful Techniques of Circuit Analysis \\  \large Introduction to Electric Circuits \\ Supplemental Instruction}
+\author{Cooper McAllister}
+\date{March 26 2026}
+\begin{document}
+\fancypagestyle{footerstyle} {
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[L]{\textit{For personal study and students leading supplemental instruction, \\ with attribution given to the author. \\ Find more at coopermcallister.com}}
+	\fancyfoot[R]{\thepage}
+}
+\pagestyle{footerstyle}
+\maketitle
+\thispagestyle{footerstyle}
+
+\begin{center}
+\textit{This document is not a substitute for a textbook or classroom instruction. It may contain errors and is intended to be used only to the extent that it is helpful to supplement students' learning experience.}
+\end{center}
+
+\section{Source Conversions}
+Find $V_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$6\textrm{A}$] (0, 6) (3, 0) to[vsource, l=$45\textrm{V}$] (3, 3) to[R, l=$15\Omega$] (3, 6) (6, 0) to[isource, l=$17.5\textrm{A}$] (6, 3) to[short] (9, 3) to[R, l=$2\Omega$] (9, 0) (7.5, 3) to[R, l=$3\Omega$] (7.5, 6) (12, 0) to[R, l=$10\Omega$, v<=$V_x$] (12, 6)
+(0, 0) -- (12, 0) (0, 6) -- (12, 6)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+We will apply a source conversion to the voltage source in series with the $15\Omega$ resistor, and apply a source conversion to  the 17.5A current source in parallel with the $2\Omega$ resistor. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$6\textrm{A}$] (0, 6) (2, 0) to[isource, invert, l=$\frac{45}{15}\textrm{A}$] (2, 6) (4, 0) to[R, l=$15\Omega$] (4, 6) (7.5, 0) to[vsource, invert, l=$(17.5\cdot2)\textrm{V}$] (7.5, 2) to[R, l=$2\Omega$] (7.5, 4) to[R, l=$3\Omega$] (7.5, 6) (12, 0) to[R, l=$10\Omega$, v<=$V_x$] (12, 6)
+(0, 0) -- (12, 0) (0, 6) -- (12, 6)
+;
+\end{circuitikz} \\ \\
+Now we will apply a source conversion to the voltage source in series with a combined $5\Omega$ resistance. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$6\textrm{A}$] (0, 6) (2, 0) to[isource, invert, l=$3\textrm{A}$] (2, 6) (4, 0) to[R, l=$15\Omega$] (4, 6) (7, 0) to[isource, l=$\frac{35}{5}\textrm{A}$] (7, 6) (9, 0) to[R, l=$5\Omega$] (9, 6) (12, 0) to[R, l=$10\Omega$, v<=$V_x$] (12, 6)
+(0, 0) -- (12, 0) (0, 6) -- (12, 6)
+;
+\end{circuitikz} \\ \\
+The current through the $10\Omega$ resistor can be found using current division and KCL: $I_x = (6 \textrm{A} + 7 \textrm{A} - 3\textrm{A}) \cdot\frac{\frac{1}{10}}{\frac{1}{10} + \frac{1}{15} + \frac{1}{5}} = 2.727 \textrm{A}$. Now the voltage can be found with Ohm's Law: $V_x = 2.727 \textrm{V} \cdot 10\Omega = 27.27 \ \textrm{V}$. 
+
+\section{Superposition}
+Find $I_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[battery, invert, l=$10\textrm{V}$] (0, 3) to[R, l=$5\textrm{k}\Omega$]  (3, 3) to[R, l=$7\textrm{k}\Omega$] (6, 3) to[R, l=$1\textrm{k}\Omega$, f=$I_x$] (6, 0) to[short] (3, 0) to[R, l=$2\textrm{k}\Omega$] (0, 0)
+(3, 0) to[R, l=$3\textrm{k}\Omega$] (3, 1.5) to[battery, l=$3\textrm{V}$] (3, 3)
+;
+\end{circuitikz} \\ \\
+We will first turn off the 3 V source: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[battery, invert, l=$10\textrm{V}$] (0, 3) to[R, l=$5\textrm{k}\Omega$, f=$I_{tot}$]  (3, 3) to[R, l=$7\textrm{k}\Omega$] (6, 3) to[R, l=$1\textrm{k}\Omega$, f=$I_{x1}$] (6, 0) to[short] (3, 0) to[R, l=$2\textrm{k}\Omega$] (0, 0)
+(3, 0) to[R, l=$3\textrm{k}\Omega$] (3, 1.5) to[short] (3, 3)
+;
+\end{circuitikz} \\ \\
+We can combine resistors to obtain: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[battery, invert, l=$10\textrm{V}$] (0, 3) to[R, l=$7\textrm{k}\Omega$, f=$I_{tot}$]  (3, 3) to[short] (6, 3) to[R, l=$8\textrm{k}\Omega$, f=$I_{x1}$] (6, 0) to[short] (3, 0) to[short] (0, 0)
+(3, 0) to[R, l=$3\textrm{k}\Omega$] (3, 3)
+;
+\end{circuitikz} \\ \\
+The two resistors on the right can be combined in parallel: $(3\textrm{k}\Omega || 8\textrm{k}\Omega) = 2.18182 \textrm{k}\Omega$. We can find the total current $I_{tot} = \frac{10\textrm{V}}{7\textrm{k}\Omega + 2.18182 \textrm{k}\Omega} = 1.089 \ \textrm{mA}$.
+Now, using current division, we can find $I_{x1} = 1.089 \textrm{mA} \cdot \frac{\frac{1}{8}}{\frac{1}{8} + \frac{1}{3}} = 297 \ \mu\textrm{A}$.
+\\ Next, we will turn off the 10 V source: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[short] (0, 3) to[R, l=$5\textrm{k}\Omega$]  (3, 3) to[R, l=$7\textrm{k}\Omega$] (6, 3) to[R, l=$1\textrm{k}\Omega$, f=$I_{x2}$] (6, 0) to[short] (3, 0) to[R, l=$2\textrm{k}\Omega$] (0, 0)
+(3, 0) to[R, l=$3\textrm{k}\Omega$, f=$I_{tot2}$] (3, 1.5) to[battery, l=$3\textrm{V}$] (3, 3)
+;
+\end{circuitikz} \\ \\
+Combining resistors and rearranging: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[battery, l=$3\textrm{V}$] (0, 3) to[short, f=$I_{tot2}$] (3, 3) to[short] (6, 3) to[R, l=$8\textrm{k}\Omega$, f=$I_{x2}$] (6, 0) to[short] (3, 0) to[R, l=$3\textrm{k}\Omega$] (0, 0)
+(3, 0) to[R, l=$7\textrm{k}\Omega$] (3, 3)
+;
+\end{circuitikz} \\ \\
+The two resistors on the right can be combined in parallel: $(7\textrm{k}\Omega || 8\textrm{k}\Omega) = 3.7333 \textrm{k}\Omega$. We can find the total current $I_{tot2} = -\frac{3\textrm{V}}{3\textrm{k}\Omega + 3.7333 \textrm{k}\Omega} = -446 \ \mu\textrm{A}$. Now, using current division, $I_{x2} = -446 \mu\textrm{A} \cdot \frac{\frac{1}{8}}{\frac{1}{8} + \frac{1}{7}} = -208 \ \mu\textrm{A}$.
+\\ So, combining the two cases, $I_x = I_{x1} + I_{x2} = 297 \mu\textrm{A} + (-208 \mu\textrm{A}) = 89 \ \mu\textrm{A}$.
+
+\section{Superposition}
+Find $V_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[battery, invert, l=$12\textrm{V}$] (0, 3) to[short] (3, 3) to[R, l=$1.5\textrm{k}\Omega$] (6, 3) to[battery, invert, l=$5\textrm{V}$] (9, 3) to[R, l=$3\textrm{k}\Omega$] (9, 0) to[short] (0, 0)
+(10, 3) to[open, v<=$V_x$, open voltage position=legacy, voltage shift=3] (2, 3)
+(3, 0) to[R, l=$750\Omega$] (3, 3)
+(6, 0) to[isource, invert, l=$5\textrm{mA}$] (6, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+First, we leave the 12 V source on and turn off the other sources: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[battery, invert, l=$12\textrm{V}$] (0, 3) to[short] (3, 3) to[R, l=$1.5\textrm{k}\Omega$] (6, 3) to[short] (9, 3) to[R, l=$3\textrm{k}\Omega$] (9, 0) to[short] (0, 0)
+(10, 3) to[open, v<=$V_{x1}$, open voltage position=legacy, voltage shift=3] (2, 3)
+(3, 0) to[R, l=$750\Omega$] (3, 3)
+(6, 0) to[open] (6, 3)
+;
+\end{circuitikz} \\ \\
+Using voltage division, $V_{x1} = 12\textrm{V}\cdot\frac{1.5}{1.5 + 3} = 4 \ \textrm{V}$.
+\\ Next, we leave the current source on and turn off the other sources: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[short] (0, 3) to[short] (3, 3) to[R, l=$1.5\textrm{k}\Omega$, f_=$I_a$] (6, 3) to[short] (9, 3) to[R, l=$3\textrm{k}\Omega$] (9, 0) to[short] (0, 0)
+(10, 3) to[open, v<=$V_{x2}$, open voltage position=legacy, voltage shift=3] (2, 3)
+(3, 0) to[R, l=$750\Omega$] (3, 3)
+(6, 0) to[isource, invert, l=$5\textrm{mA}$] (6, 3)
+;
+\end{circuitikz} \\ \\
+The $750\Omega$ resistor is shorted (no current flows through it). Using current division, $I_a = 5\textrm{mA}\cdot\frac{\frac{1}{1.5}}{\frac{1}{1.5} + \frac{1}{3}} = 3.33 \textrm{mA}$. Using Ohm's Law, $V_{x2} = 3.33\textrm{mA}\cdot1.5\textrm{k}\Omega = 5 \ \textrm{V}$.
+\\ Next, we leave the 5 V source on and turn off the other sources: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[short] (0, 3) to[short] (3, 3) to[R, l=$1.5\textrm{k}\Omega$, v=$V_b$] (6, 3) to[battery, invert, l=$5\textrm{V}$] (9, 3) to[R, l=$3\textrm{k}\Omega$] (9, 0) to[short] (0, 0)
+(10, 3) to[open, v<=$V_{x3}$, open voltage position=legacy, voltage shift=3] (2, 3)
+(3, 0) to[R, l=$750\Omega$] (3, 3)
+(6, 0) to[open] (6, 3)
+;
+\end{circuitikz} \\ \\
+The $750\Omega$ resistor is shorted (there is no voltage across it). Using voltage division, $V_b = 5 \textrm{V}\cdot\frac{1.5}{1.5 + 3} = 1.667 \textrm{V}$. Using KVL, $V_{x3} = 1.667 - 5 = -3.33 \ \textrm{V}$. 
+\\ So, combining all three cases, $V_x = 4 \textrm{V} + 5 \textrm{V} - 3.33\textrm{V} = 5.67 \ \textrm{V}$.
+
+\section{Thevenin Equivalent}
+Find the thevenin equivalent between points A and B. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R, l=$5\textrm{k}\Omega$] (0, 3) to[short] (3, 3) to[vsource, invert, l=$9\textrm{V}$] (6, 3) to[R, l=$8\textrm{k}\Omega$] (9, 3) node[right]{$A$} to[open,  o-o] (9, 0)
+(0, 0) to[short] (9, 0) node[right]{$B$}
+(3, 0) to[R, l=$10\textrm{k}\Omega$] (3, 3) (6, 0) to[R, l=$15\textrm{k}\Omega$] (6, 3)
+(3, 3) to[short] (3, 5) to[R, l=$22\textrm{k}\Omega$] (6, 5) to[short] (6, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+The thevenin voltage is found as the open-circuit voltage, that is, when there is no current flowing into or out of the network: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R, l=$5\textrm{k}\Omega$] (0, 3) to[short] (3, 3) to[vsource, invert, l=$9\textrm{V}$] (6, 3) to[R, l=$8\textrm{k}\Omega$, f=$0\textrm{A}$] (9, 3) node[right]{$A$} to[open,  o-o, v=$V_{th}$] (9, 0)
+(0, 0) to[short] (6, 0) to[short, f<=$0\textrm{A}$] (9, 0) node[right]{$B$}
+(3, 0) to[R, l=$10\textrm{k}\Omega$] (3, 3) (6, 0) to[R, l=$15\textrm{k}\Omega$, v<=$V_a$] (6, 3)
+(3, 3) to[short] (3, 5) to[R, l=$22\textrm{k}\Omega$] (6, 5) to[short] (6, 3)
+;
+\end{circuitikz} \\ \\
+Since the current through the 8k$\Omega$ resistor is 0, the voltage generated across it is 0, and $V_a = V_{th}$ by KVL. Also, note that the 15k$\Omega$ resistor is in series with the two resistors on the left. We can find this voltage using voltage division: $V_{th} = V_a = 9\textrm{V}\cdot\frac{15\textrm{k}}{15\textrm{k} + (5\textrm{k} || 10\textrm{k})} = 7.364 \ \textrm{V}$.
+Next, the thevenin resistance is found with the source set to 0: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R, l=$5\textrm{k}\Omega$] (0, 3) to[short] (3, 3) to[short] (6, 3) to[R, l=$8\textrm{k}\Omega$] (9, 3) node[right]{$A$} to[open,  o-o] (9, 0)
+(0, 0) to[short] (6, 0) to[short] (9, 0) node[right]{$B$}
+(3, 0) to[R, l=$10\textrm{k}\Omega$] (3, 3) (6, 0) to[R, l=$15\textrm{k}\Omega$] (6, 3)
+(3, 3) to[short] (3, 5) to[R, l=$22\textrm{k}\Omega$] (6, 5) to[short] (6, 3)
+;
+\draw (10, 1.5) -- (9.5, 1.5) [->];
+\node[draw=none] at (10.5, 1.5) {$R_{th}$};
+\end{circuitikz} \\ \\
+Note that the 22k$\Omega$ resistor is shorted. $R_{th} = 8\textrm{k} + 5\textrm{k} || 10\textrm{k} || 15\textrm{k} = 10.727 \ \textrm{k}\Omega$.
+\\ Therefore, the thevenin equivalent is: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$7.364\textrm{V}$] (0, 3) to[R, l=$10.727\textrm{k}\Omega$] (3, 3) node[right]{$A$} to[open,  o-o] (3, 0) node[right]{$B$} to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+
+\section{Wheatstone Bridge}
+Find the value of $R_L$ required for a current of 200 $\mu$A through $R_L$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5\textrm{V}$] (0, 8) to[short] (5, 8) to[short] (5, 7) to[R, l=$2\textrm{k}\Omega$] (2, 4) to[R, l=$4\textrm{k}\Omega$] (5, 1) to[short] (5, 0) to[short] (0, 0)
+(5, 7) to[R, l=$6\textrm{k}\Omega$] (8, 4) to[R, l=$3\textrm{k}\Omega$] (5, 1)
+(2, 4) to[R, l=$R_L$] (8, 4)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+Let's find the thevenin equivalent of the bridge with $R_L$ removed. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5\textrm{V}$] (0, 8) to[short] (5, 8) to[short] (5, 7) to[R, l=$2\textrm{k}\Omega$] (2, 4) to[R, l=$4\textrm{k}\Omega$] (5, 1) to[short] (5, 0) to[short] (0, 0)
+(5, 7) to[R, l=$6\textrm{k}\Omega$] (8, 4) to[R, l=$3\textrm{k}\Omega$] (5, 1)
+(2, 4) to[open, v=$V_{th}$] (8, 4)
+;
+\end{circuitikz} \\ \\
+Using voltage division, $V_{th} = 5\cdot\frac{4}{4+2} - 5\cdot\frac{3}{3+6} = 1.667 \ \textrm{V}$.
+\\ The thevenin resistance is found with the source turned off: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[short] (0, 8) to[short] (5, 8) to[short] (5, 7) to[R, l=$2\textrm{k}\Omega$] (2, 4) to[R, l=$4\textrm{k}\Omega$] (5, 1) to[short] (5, 0) to[short] (0, 0)
+(5, 7) to[R, l=$6\textrm{k}\Omega$] (8, 4) to[R, l=$3\textrm{k}\Omega$] (5, 1)
+(2, 4) to[short] (3, 4) to[open, o-o] (7, 4) to[short] (8, 4)
+;
+\node[draw=none] at (5, 4) {$R_{th}$};
+\end{circuitikz} \\ \\
+Note that the two resistors on the left are in parallel, and the two resistors on the right are in parallel. Therefore, $R_{th} = (2\textrm{k} || 4\textrm{k}) + (6\textrm{k} || 3\textrm{k}) = 3.33 \ \textrm{k}\Omega$.
+\\ We can now use the thevenin equivalent to redraw the circuit more simply: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$1.667\textrm{V}$] (0, 3) to[R, l=$3.33\textrm{k}\Omega$] (3, 3) to[R, l=$R_L$, f=$I_L$] (3, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+We can now find $R_L$: $I_L = 200\mu\textrm{A} = \frac{1.667\textrm{V}}{3.33\textrm{k}\Omega + R_L} \Rightarrow R_L = 5 \ \textrm{k}\Omega$.
+
+\section{Mesh Currents}
+Find $V_1$ and $V_2$ given the mesh currents $i_a = 1\textrm{mA}$ and $i_b = 5\textrm{mA}$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R, l=$2.2\textrm{k}\Omega$, v<=$V_1$] (0, 6) to[R] (3, 6) to[short] (6, 6) to[isource, l=$3\textrm{mA}$] (6, 3) to[R] (6, 0) to[vsource] (3, 0) to[short] (0, 0)
+(3, 0) to[vsource, invert] (3, 3) to[R, l=$6.8\textrm{k}\Omega$, v<=$V_2$] (3, 6)
+(0, 0) to[short] (-3, 0) to[vsource] (-3, 6) to[R] (0, 6)
+;
+\draw(-1.5, 2.5) arc(270:45:0.5) [->]; \node[draw=none] at (-1.5, 3) {$i_a$};
+\draw(1.5, 2.5) arc(270:45:0.5) [->]; \node[draw=none] at (1.5, 3) {$i_b$};
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+Note that the current of the rightmost mesh is given by the current source. The voltages can be found directly using KCL and Ohm's Law as in Mesh Analysis: $V_1 = 2.2\textrm{k}\Omega\cdot(i_a - i_b) = 2.2\textrm{k}\Omega\cdot(1\textrm{mA} - 5\textrm{mA}) = -8.8 \ \textrm{V}$, and $V_2 = 6.8\textrm{k}\Omega\cdot(i_b - 3\textrm{mA}) = 6.8\textrm{k}\Omega\cdot(5\textrm{mA} - 3\textrm{mA}) = 13.6 \ \textrm{V}$.
+
+\section{Mesh Analysis}
+Find $I_1$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R=$1\Omega$, f<=$I_1$] (0, 6) to[short] (3, 6) to[vsource, l=$12\textrm{V}$] (3, 3) to[R=$3\Omega$] (3, 0) to[short] (0, 0)
+(3, 6) to[R=$6\Omega$] (7, 6) to[short] (7, 3) to[R=$2\Omega$] (3, 3)
+(7, 3) to[R=$4\Omega$] (7, 0) to[vsource, l=$4\textrm{V}$] (3, 0)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+Let's draw the three mesh currents flowing clockwise: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R=$1\Omega$, f<=$I_1$] (0, 6) to[short] (3, 6) to[vsource, l=$12\textrm{V}$] (3, 3) to[R=$3\Omega$] (3, 0) to[short] (0, 0)
+(3, 6) to[R=$6\Omega$] (7, 6) to[short] (7, 3) to[R=$2\Omega$] (3, 3)
+(7, 3) to[R=$4\Omega$] (7, 0) to[vsource, l=$4\textrm{V}$] (3, 0)
+;
+\draw(1.5, 2.6) arc(270:45:0.5) [->]; \node[draw=none] at (1.5, 3) {$i_a$};
+\draw(5, 4.1) arc(270:45:0.5) [->]; \node[draw=none] at (5, 4.5) {$i_b$};
+\draw(5, 1.1) arc(270:45:0.5) [->]; \node[draw=none] at (5, 1.5) {$i_c$};
+\end{circuitikz} \\ \\
+Now we can write the KVL equations for each mesh. We'll start at the upper left hand corner of each mesh and sum the voltages going clockwise:
+\\ For the mesh $i_a$:
+$$12\textrm{V} + 3\Omega(i_a - i_c) + 1\Omega(i_a) = 0$$
+\\ For the mesh $i_b$:
+$$6\Omega(i_b) + 2\Omega(i_b - i_c) - 12\textrm{V} = 0$$
+\\ For the mesh $i_c$:
+$$2\Omega(i_c - i_b) + 4\Omega(i_c) + 4\textrm{V} + 3\Omega(i_c - i_a) = 0$$
+Now we can solve the system of equations using any method we like to obtain $i_a=-4.2$ A, $i_b=1.1$ A, and $i_c=-1.6$ A.
+\\ We can now find $I_1 = -i_a = 4.2$ A.
+
+\section{Nodal Analysis Currents}
+Find $I_1$ and $I_2$ using nodal analysis techniques. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$10\textrm{V}$] (0, 3) to[R, l=$3.3\textrm{k}\Omega$, f=$I_1$] (3, 3) to[R, l=$4.7\textrm{k}\Omega$, f_=$I_2$] (5, 3) to[vsource, l=$8\textrm{V}$] (7, 3) to[short] (7, 0) to[short] (0, 0) (3, 0) to[vsource, l=$5\textrm{V}$] (3, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+The currents can be found directly using KVL and Ohm's Law as in nodal analysis: $I_1 = \frac{10\textrm{V} - (-5\textrm{V})}{3.3\textrm{k}\Omega} = 4.545 \ \textrm{mA}$, and $I_2 = \frac{(-5\textrm{V}) - 8\textrm{V}}{4.7\textrm{k}\Omega} = -2.766 \ \textrm{mA}$.
+
+\section{Nodal Analysis}
+Find the unknown nodal voltages with respect to the bottom node. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5\textrm{V}$] (0, 4) to[R, l=$8\Omega$] (3, 4) to[R, l=$7\Omega$] (6, 4) to[R, l=$6\Omega$] (9, 4) to[R, l=$5\Omega$] (12, 4) to[vsource, l=$12\textrm{V}$] (12, 0)
+to[short] (0, 0)
+(3, 0) to[vsource, invert, l=$9\textrm{V}$] (3, 2) to[R, l=$4\Omega$] (3, 4) (6, 0) to[R, l=$3\Omega$] (6, 4) (9, 0) to[vsource, l=$3\textrm{V}$] (9, 2) to[R, l=$2\Omega$] (9, 4)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+Let's name and label the nodal voltages: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, invert, l=$5\textrm{V}$] (0, 4) to[R, l=$8\Omega$] (3, 4) to[R, l=$7\Omega$] (6, 4) to[R, l=$6\Omega$] (9, 4) to[R, l=$5\Omega$] (12, 4) to[vsource, l=$12\textrm{V}$] (12, 0)
+to[short] (0, 0)
+(3, 0) to[vsource, invert, l=$9\textrm{V}$] (3, 2) to[R, l=$4\Omega$] (3, 4) (6, 0) to[R, l=$3\Omega$] (6, 4) (9, 0) to[vsource, l=$3\textrm{V}$] (9, 2) to[R, l=$2\Omega$] (9, 4)
+(3, 0) to[open, v<=$v_a$, open voltage position=legacy, voltage shift=5] (3, 4) (6, 0) to[open, v<=$v_b$, open voltage position=legacy, voltage shift=5] (6, 4) (9, 0) to[open, v<=$v_c$, open voltage position=legacy, voltage shift=5] (9, 4)
+;
+\end{circuitikz} \\ \\
+Now we can write the nodal KCL equations:
+\\For the node of voltage $v_a$: $$\frac{5\textrm{V}-v_a}{8\Omega} + \frac{v_b-v_a}{7\Omega} + \frac{9\textrm{V} - v_a}{4\Omega} = 0$$
+\\For the node of voltage $v_b$: $$\frac{v_a - v_b}{7\Omega} + \frac{v_c - v_b}{6\Omega} - \frac{v_b}{3\Omega} = 0$$
+\\For the node of voltage $v_c$: $$\frac{v_b - v_c}{6\Omega} + \frac{12\textrm{V} - v_c}{5\Omega} + \frac{(-3\textrm{V}) - v_c}{2\Omega} = 0$$
+Solving these equations gives $v_a = 6.018\textrm{V}$, $v_b = 1.691\textrm{V}$, and $v_c = 1.364\textrm{V}$.
+
+\newpage
+\section*{References}
+\begin{itemize}
+\item M. Iordache. Class Lectures, Topic: ``Electric circuits.'' EEGR 2053, School of Engineering and Engineering Technology, LeTourneau University, 2025.
+\item M. Iordache. 2024. EEGR 2053 Electric circuits [PowerPoint slides]. Available: \\ https://mviordache.name/EEGR2053/index.html
+\item T. L. Floyd and D. M. Buchla, Principles of Electric Circuits: Conventional Current, 10th ed. Hoboken, NJ: Pearson Education, 2020.
+\item O. Ortiz. 2025. ENGR 2053 Intro to electric circuits [PowerPoint slides].
+\end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,135 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\usepackage{bm}
+\usepackage{float}
+\title{Practice Problems: \\AC Circuit Analysis \\  \large Introduction to Electric Circuits \\ Supplemental Instruction}
+\author{Cooper McAllister}
+\date{April 7 2026}
+\begin{document}
+\fancypagestyle{footerstyle} {
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[L]{\textit{For personal study and students leading supplemental instruction, \\ with attribution given to the author. \\ Find more at coopermcallister.com}}
+	\fancyfoot[R]{\thepage}
+}
+\pagestyle{footerstyle}
+\maketitle
+\thispagestyle{footerstyle}
+
+\begin{center}
+\textit{This document is not a substitute for a textbook or classroom instruction. It may contain errors and is intended to be used only to the extent that it is helpful to supplement students' learning experience.}
+\end{center}
+
+\section{Sinusoidal Function Combinations}
+Given $x(t) = 4\cos(3t - 20^\circ)$ and $y(t) = 8\cos(3t + 60^\circ)$, simplify $x(t)y(t)$ to a single $\cos$ function.
+\subsection*{Solution}
+Let's convert both functions to phasors, taking $\omega = 3$. $\bm{X} = 4\angle -20^\circ$ and $\bm{Y} = 8\angle 60^\circ$. Therefore, the product is $4\cdot8\angle (-20 + 60)^\circ = 32\angle 40^\circ$. Converting back to a $\cos$ function, $x(t)y(t) = 32\cos(3t + 40^\circ)$.
+
+
+\section{Phasors}
+For the voltage $\bm{V} = 5\angle 30^\circ$ V, find $V(t)$ as a cosine function and find $V(1.893\textrm{s})$. Assume a frequency $f = 100$ Hz.
+\subsection*{Solution}
+The angular frequency is $\omega = 2\pi f = 2\pi\cdot 100 \textrm{Hz} = 200\pi$ rad/s. Therefore,
+$V(t) = 5\cos(200\pi t + 30^\circ)$ V. When finding the voltage at a specific time, it is important to be careful about the fact that $\omega$ is in units of rad/s, but the phase angle is in degrees: $V(2\textrm{s}) = 5\cos(200\pi \ \textrm{rad}\cdot1.893 + 30^\circ) \textrm{V}= 5\cos(378.6\pi + \pi / 6) \textrm{V} = -3.716$ V.
+
+\section{Impedance Combinations}
+Find the total impedance in both polar and rectangular form. \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[open, o-o] (0, 3) to[C, l=$X_c {=} 70\Omega$] (3, 3) to[short] (6, 3) to[R=$60\Omega$] (6, 0) to[short] (0, 0) (3, 0) to[R=$60\Omega$] (3, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+Recall that capacitor impedance is always negative. The total impedance is $\bm{Z_{tot}} = (60\Omega || 60\Omega) - j70\Omega = 30 - j70 \ \Omega$. Converting to polar form, $Z_m = \sqrt{30^2 + 70^2} = 76.161$, and $\theta = \arctan(\frac{-70}{30}) = -66.8^\circ$, so $\bm{Z_{tot}} = 76.16 \angle -66.8^\circ \ \Omega$.
+
+\section{Impedance Combinations, Ohm's Law}
+Find the total impedance in polar form, and the total current $\bm{I_s}$. Assume $f=60$ Hz.\\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$5\angle0^\circ\textrm{V}$] (0, 3) to[R=$47\Omega$, f=$\bm{I_s}$] (3, 3) to[L=$15\mu \textrm{H}$] (6, 3) to[short] (9, 3) to[C=$30\mu \textrm{F}$] (9, 0) to[short] (0, 0) (6, 0) to[C=$7\mu \textrm{F}$] (6, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+We can combine the capacitors in parallel by adding them to get $37\mu F$. Now, let's find the impedances of the reactive components. $\bm{Z_L} = j\cdot 2\pi60 \cdot 15\mu\textrm{H} = 0.005655j\Omega$, and $\bm{Z_C} = \frac{1}{j\cdot 2\pi60 \cdot 37\mu \textrm{F}} = -71.691\Omega$. Therefore, the total impedance is $\bm{Z_{tot}} = 47 + 0.005655j -71.691j = 47 - 71.69j \ \Omega$. We can convert this to polar form to obtain $\bm{Z_{tot}} = 85.72\angle -56.75^\circ \ \Omega$.
+\\To find the total current, we will apply Ohm's Law: $\bm{I_s} = \frac{\bm{V}}{\bm{Z_{tot}}} = \frac{5\angle0^\circ \textrm{V}}{85.72\angle -56.75^\circ \Omega} = 58.3 \angle (0^\circ - (-56.75^\circ)) = 58.3 \angle 56.75^\circ \ \textrm{mA}$.
+
+\section{Voltage Division in AC}
+Find as phasors (a) the total current $I_{tot}$, (b) $V_{R1}$, and (c) $V_C$. Assume $\omega = 100$. \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$20 \angle 10^\circ\textrm{V}$] (0, 3) to[L=$30\textrm{mH}$, f=$I_{tot}$] (3, 3) to[R=$8\Omega$, v=$V_{R1}$] (6, 3) to[short] (9, 3) to[C=$20\mu\textrm{F}$, v=$V_C$] (9, 0) to[short] (0, 0) (6, 0) to[R=$500\Omega$] (6, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+The total impedance is $Z_{tot} = j\omega 30\textrm{mH} + 8 + (500 || \frac{1}{j\omega 20\mu\textrm{F}}) = j100\cdot30\cdot10^{-3} + 8 + \frac{1}{\frac{1}{500} + j100\cdot20\cdot10^{-6}}= 258 - 247j \ \Omega$. Therefore, the total current is $I_{tot} = \frac{20\angle 10^\circ \textrm{V}}{258 - 247j \ \Omega} = \frac{20\angle 10^\circ \textrm{V}}{357.174 \angle -43.7522^\circ \Omega} = 56 \angle 53.75^\circ \ \textrm{mA}$.
+\\We can find $V_{R1}$ and $V_C$ using voltage division. We have a circuit with three equivalent impedances in series: \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$20 \angle 10^\circ\textrm{V}$] (0, 3) to[generic, l=$3j\Omega$] (3, 3) to[generic, l=$8\Omega$, v=$\bm{V_{R1}}$] (6, 3) to[generic, l=$250-250j \ \Omega$, v=$\bm{V_C}$] (6, 0) to[short] (0, 0)
+;
+\end{circuitikz} \\ \\
+We can find the voltages as follows:
+$$\bm{V_{R1}} = 20\angle10^\circ \cdot\frac{8}{3j + 8+ 250-250j} = 448\angle 53.8^\circ \ \textrm{mV}$$
+$$\bm{V_C} =20\angle10^\circ \cdot\frac{250-250j}{3j + 8 + 250 - 250j} = 19.8\angle 8.75^\circ \ \textrm{V}$$
+
+
+\section{Superposition}
+Find $\bm{I_x}$. Assume $\omega = 2000$. \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$12 \angle0^\circ\textrm{V}$] (0, 3) to[L=$750\mu\textrm{H}$] (3, 3) to[C=$33\mu\textrm{F}$] (6, 3) to[short] (9, 3) to[R, l=$3\Omega$, f=$\bm{I_x}$] (9, 0) to[short] (0, 0)
+(6, 0) to[isource, l=$1\angle20^\circ\textrm{A}$] (6, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+We will first turn off the current source: \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$12 \angle0^\circ\textrm{V}$] (0, 3) to[L=$750\mu\textrm{H}$] (3, 3) to[C=$33\mu\textrm{F}$] (6, 3) to[short] (9, 3) to[R, l=$3\Omega$, f=$\bm{I_{x1}}$] (9, 0) to[short] (0, 0)
+(6, 0) to[open] (6, 3)
+;
+\end{circuitikz} \\ \\
+Using Ohm's Law,
+$$\bm{I_{x1}} = \frac{12}{j2000\cdot750\mu\textrm{H} +\frac{1}{j2000\cdot33\mu\textrm{F}} + 3\Omega} = 0.1843 + 0.8385j \ \textrm{A}$$
+Next, we turn off the voltage source: \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[short] (0, 3) to[L=$750\mu\textrm{H}$] (3, 3) to[C=$33\mu\textrm{F}$] (6, 3) to[short] (9, 3) to[R, l=$3\Omega$, f=$\bm{I_{x2}}$] (9, 0) to[short] (0, 0)
+(6, 0) to[isource, l=$1\angle20^\circ\textrm{A}$] (6, 3)
+;
+\end{circuitikz} \\ \\
+The combined impedance of the inductor and capacitor is $-13.6515j \ \Omega$. Using current division,
+$$\bm{I_{x2}} = (\cos(20^\circ) + j\sin(20^\circ))\cdot\frac{\frac{1}{3}}{\frac{1}{3} + \frac{1}{-13.6515j}} = 0.9681 + 0.1293j \ \textrm{A}$$
+Therefore, the total current is:
+$$\bm{I_x} = 0.1843 + 0.8385j + 0.9681 + 0.1293j = 1.1524 + 0.9678j \ \textrm{A}$$
+This can also be converted to polar form:
+$$\bm{I_x} = 1.505 \angle 40.023^\circ \ \textrm{A} $$
+
+\section{Thevenin}
+Find the thevenin equivalent between points $A$ and $B$ Assume a frequency of 1000 Hz. \\ \\
+\begin{circuitikz}[american, cute inductors] \draw
+(0, 0) to[vsource, invert, l=$5\angle45^\circ$] (0, 3) to[R=$1.1\textrm{k}\Omega$] (3, 3) to[C=$300\textrm{nF}$] (6, 3) node[right]{$A$} to[open, o-o] (6, 0) node[right]{$B$} to[short] (0, 0)
+(3, 0) to[R=$4.7\textrm{k}\Omega$] (3, 3)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+For the open-circuit voltage, no current flows through the capacitor, so the thevenin phasor voltage is $\bm{V_{th}} = 5\angle45^\circ\cdot\frac{4.7}{1.1 + 4.7} = 4.0517 \angle45^\circ \ \textrm{V}$.
+For the thevenin impedance, the voltage source is turned off (shorted), so the thevenin impedance is $\bm{Z_{th}} = \frac{1}{j2000\pi\cdot300\textrm{nF}} + (1.1\textrm{k} || 4.7\textrm{k}) = 891.379 - 530.516j \Omega = 1.037\angle-30.76^\circ \ \textrm{k}\Omega$.
+
+\newpage
+\section*{References}
+\begin{itemize}
+\item M. Iordache. Class Lectures, Topic: ``Electric circuits.'' EEGR 2053, School of Engineering and Engineering Technology, LeTourneau University, 2025.
+\item M. Iordache. 2024. EEGR 2053 Electric circuits [PowerPoint slides]. Available: \\ https://mviordache.name/EEGR2053/index.html
+\item T. L. Floyd and D. M. Buchla, Principles of Electric Circuits: Conventional Current, 10th ed. Hoboken, NJ: Pearson Education, 2020.
+\item O. Ortiz. 2025. ENGR 2053 Intro to electric circuits [PowerPoint slides].
+\end{itemize}
+
+\end{document}
+
+
+
+
+
+
+
+
+

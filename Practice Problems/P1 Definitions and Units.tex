@@ -1,0 +1,227 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\usepackage[shortlabels]{enumitem}
+\title{Practice Problems: \\ Units, Voltage and Current, and Basic Circuit Elements \\  \large Introduction to Electric Circuits \\ Supplemental Instruction}
+\author{Cooper McAllister}
+\date{January 20 2026}
+\begin{document}
+\fancypagestyle{footerstyle} {
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[L]{\textit{For personal study and students leading supplemental instruction, \\ with attribution given to the author. \\ Find more at coopermcallister.com}}
+	\fancyfoot[R]{\thepage}
+}
+\pagestyle{footerstyle}
+\maketitle
+\thispagestyle{footerstyle}
+
+\section{Engineering Notation}
+Convert the following quantities to engineering notation (remember that the coefficient should be between 1 and 999):
+\begin{enumerate}[(a)]
+\item 1947 W
+\item 0.0025 A
+\item 0.1738 mJ
+\item 47946 nV
+\item 0.00092 G$\Omega$
+\end{enumerate}
+\subsection*{Solution}
+\begin{enumerate}[(a)]
+\item 1.947 kW
+\item 2.5 mA
+\item 173.8 $\mu$J
+\item 47.946 $\mu$V
+\item 920 k$\Omega$
+\end{enumerate}
+
+\section{Electron Charge}
+Sam's Superb Subatomic Particle Supply\texttrademark \  sells electrons for 5 n\textdollar \ (nanodollars) each. How much would one Coulomb's worth cost at this rate?
+\subsection*{Solution}
+$1 \textrm{C} \cdot \frac{\textrm{electron}}{1.6*10^{-19} \textrm{C}} \cdot \frac{\textdollar 5\cdot 10^{-9}}{\textrm{electron}} = 3.125*10^{10} = 31.25 \ G\textdollar \ \textrm{(Gigadollars)}$
+
+\section{Current Notation}
+For each case, find the indicated current.
+\begin{enumerate}[(a)]
+\item
+\begin{circuitikz}[american] \draw
+(0, 0) to[short, f<=$5 \textrm{A}$,] (1, 0) to[short, f_=$I_a$] (2, 0)
+;
+\end{circuitikz} \\ \\
+\item
+\begin{circuitikz}[american] \draw
+(0, 0) to[short, f=$20  \textrm{mA}$,] (1, 0) to[short, f_=$-I_b$] (2, 0)
+;
+\end{circuitikz} \\ \\
+\item
+\begin{circuitikz}[american] \draw
+(0, 0) to[short, f=$-3 \textrm{A}$,] (1, 0) to[short, f_<=$I_c$] (2, 0)
+;
+\end{circuitikz} \\ \\
+\end{enumerate}
+\subsection*{Solution}
+\begin{enumerate}[(a)]
+\item $I_a = -5 \textrm{A}$
+\item $I_b = -20 \textrm{mA}$
+\item $I_c = 3 \textrm{A}$
+\end{enumerate}
+
+\section{Finding Current From Charge}
+If the charge passing from point at \textbf{A} to point \textbf{B} at some time $t$ is described by $Q_{AB} = 3t^2 - e^{-2t}$, find the current from \textbf{B} to \textbf{A} at time $t=0.5$s.
+\subsection*{Solution}
+$$I_{BA} = -I_{AB} = -\left[\frac{dQ_{AB}}{dt}\right] = -\left[\frac{d}{dt}(3t^2-e^{-2t})\right] = -\left[6t + 2e^{-2t}\right] = -6t-2e^{-2t}$$
+At time $t=0.5$s,
+$$I_{BA}(5) = -6(0.5) - 2e^{-2(0.5)} = -3.74 \textrm{A}$$
+
+\section{Finding Charge From Current}
+When Noah Barlow's gaming rig boots up, the current it draws is described by
+$$I = \sqrt{t+2}$$
+Find the total charge that flows to the gaming rig from $t=0$s to $t=10$s. 
+\subsection*{Solution}
+$$Q=\int I dt = \int_{0}^{10} \sqrt{t+2} = \left[\frac{2}{3}(x+2)^{\frac{3}{2}}\right]  _{0}^{10} = \frac{2}{3}(10+2)^{\frac{3}{2}} -\frac{2}{3}(0+2)^{\frac{3}{2}} = 25.83 \ \textrm{C}$$
+
+\section{Voltage}
+A certain amount of work is done to move one Coulomb of charge from point \textbf{C} to point \textbf{D}. Afterwards, the voltage between \textbf{C} and \textbf{D} is 5V. How much work was done?
+\subsection*{Solution}
+$$W = QV = 1 \ \textrm{C} \cdot 5 \ \textrm{V} = 5 J$$
+
+\section{Voltage Notation}
+For each case, find the indicated voltage. Both voltages are between the same pair of points.
+\begin{enumerate}[(a)]
+\item
+\begin{circuitikz}[american] \draw
+(0, 0) node[above]{$a$} to[open, *-*, v=$5 \ \textrm{V}$] (3, 0) node[above]{$b$}
+(0, 0.5) to[open, v<=$V_x$] (3, 0.5)
+;
+\end{circuitikz} \\ \\ 
+\item
+\begin{circuitikz}[american] \draw
+(0, 0) node[above]{$c$} to[open, *-*, v<=$-10 \ \textrm{V}$] (3, 0) node[above]{$d$}
+(0, 0.5) to[open, v=$V_y$] (3, 0.5)
+;
+\end{circuitikz} \\ \\ 
+\item
+\begin{circuitikz}[american] \draw
+(0, 0) node[above]{$e$} to[open, *-*, v=$3 \ \textrm{mV}$] (3, 0) node[above]{$f$}
+;
+\end{circuitikz} Find $V_{fe}$.
+\end{enumerate}
+\subsection*{Solution}
+\begin{enumerate}[(a)]
+\item $V_x = -5 \ \textrm{V}$
+\item $V_y = 10 \ \textrm{V}$
+\item $V_{fe} = -3 \ \textrm{mV}$
+\end{enumerate}
+
+\section{Resistance and Conductance}
+Find the conductance of a resistor of value 1.5k$\Omega$.
+\subsection*{Solution}
+$$G = \frac{1}{R} = \frac{1}{1.5\textrm{k}\Omega} = 0.000667 \ \textrm{S} = 667 \ \mu\textrm{S}$$
+
+\section{Resistor Color Codes}
+In each case, find the value and tolerance of the resistor with the specified color codes. Note that the codes may be read either from right to left or from left to right. Use the reading direction that gives a valid resistor value.
+\begin{enumerate}[(a)]
+\item Brown, Black, Red, Gold
+\item Silver, Orange, Purple, Yellow
+\item Orange, Orange, Brown, Green
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}[(a)]
+\item Reading left to right: $('1' + '0') \cdot 100\Omega = 10\cdot100\Omega = 1\textrm{k}\Omega \pm 5\%$
+\item Reading right to left: $('4' + '7') \cdot 1\textrm{k}\Omega = 47\cdot1\textrm{k}\Omega = 47\textrm{k}\Omega \pm 10\%$
+\item Reading left to right: $('3' + '3') \cdot 10\Omega = 33\cdot10\Omega = 330\Omega \pm 0.5\%$
+\end{enumerate}
+
+\section{Power}
+Find the absorbed power.
+\begin{enumerate}[(a)]
+\item
+\begin{circuitikz}[american] \draw
+(0, 0) to[short, f=$700\textrm{mA}$] (1, 0) to[twoport, v=$3\textrm{V}$] (5, 0)
+;
+\end{circuitikz} \\ \\ 
+\item
+\begin{circuitikz}[american] \draw
+(0, 0) to[short, f=$20\textrm{A}$] (1, 0) to[twoport, v<=$100\textrm{V}$] (5, 0)
+;
+\end{circuitikz} \\ \\ 
+\end{enumerate}
+\subsection*{Solution}
+\begin{enumerate}[(a)]
+\item $P = IV = 700\textrm{mA} \cdot 3\textrm{V} = 2.1 \ \textrm{W}$
+\item $P = -IV = -20\textrm{A} \cdot 100\textrm{V} = -2 \ \textrm{kW}$
+\end{enumerate}
+
+\section{Power and Energy}
+If a space heater uses 1500 W, how long will it take to transfer 750 kJ of energy to the room it's heating (assuming 100\% efficiency)?
+\subsection*{Solution}
+$P = \frac{E}{t} \Rightarrow t = \frac{E}{P} = \frac{750 \textrm{kJ}}{1500 W} = 500 \ \textrm{s} = 8.3 \ \textrm{minutes}$
+
+\section{Power}
+A resistor carries 2A of current and dissapates 600 J of energy in one minute. Find (a) the minimum required power rating of the resistor and (b) its resistance.
+\subsection*{Solution}
+(a) $ P = \frac{E}{t} = \frac{600 J}{60 s} = 10 W$ \\
+(b) $P = IV = I(IR) = I^2R \Rightarrow R = \frac{P}{I^2} = \frac{10 \textrm{W}}{(2 \textrm{A})^2} = \frac{10 \textrm{V}\cdot\textrm{A}}{4 \textrm{A}^2} = 2.5 \frac{\textrm{V}}{\textrm{A}} = 2.5 \ \Omega$
+
+\section{Circuit Elements}
+Find $V_x$, $V_y$, $V_z$, $V_a$, and $I_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[vsource, l=$8\textrm{V}$] (0, 3) to[short] (0, 5) to[isource, l=$20\textrm{mA}$] (3, 5) to[short] (12, 5) to[short, f=$I_x$] (12, 3) to[short] (12, 0) to[vsource, l=$5 \textrm{V}$] (9, 0) to[short] (0, 0)
+(0, 3) to[short] (3, 3) to[R, v=$V_a$] (6, 3) to[isource, invert, l=$50\textrm{mA}$] (9, 3) to[short] (12, 3)
+(3, 0) to[R, v=$V_x$] (3, 3) 
+(6, 0) to[short] (6, 3)
+(9, 0) to[R] (9, 3)
+(6, 3) to[open, v<=$V_y$] (6, 5)
+(9, 3) to[open, v=$V_z$] (9, 5)
+;
+\end{circuitikz} \\ \\ 
+\subsection*{Solution}
+$V_x = 8 \ \textrm{V}$ \\
+$V_y = 5 \ \textrm{V}$ \\
+$V_z = 0 \ \textrm{V}$ \\
+$V_a =- 8 \ \textrm{V}$ \\
+$I_x = 20 \ \textrm{mA}$
+
+
+\section{Series and Parallel Components}
+For each pair of components, indicate whether the components are in series, parallel, or neither.
+\begin{enumerate}[(a)]
+\item $R_7$ and $R_2$
+\item $I_1$ and $R_1$
+\item $R_8$ and $R_3$
+\item $R_3$ and $R_4$
+\item $R_1$ and $R_5$
+\item $I_1$ and $R_6$
+\end{enumerate}
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$I_1$] (0, 6) to[short] (3, 6) to[R, l=$R_1$] (6, 6) to[short] (9, 6) to[R, l=$R_2$] (9, 3) to[R, l=$R_3$] (9, 0) to[R, l=$R_4$] (6, 0) to[R, l=$R_5$] (3, 0) to[short] (0, 0)
+(2, 6) to[R, l=$R_6$] (2, 0)
+(6, 6) to[R, l=$R_7$] (6, 3) to[R, l=$R_8$] (6, 0)
+(6, 3) to[short] (9, 3)
+;
+\end{circuitikz}
+\subsection*{Solution}
+\begin{enumerate}[(a)]
+\item $R_7$ and $R_2$ are in Parallel
+\item $I_1$ and $R_1$ are Neither
+\item $R_8$ and $R_3$ are Neither
+\item $R_3$ and $R_4$ are in Series
+\item $R_1$ and $R_5$ are in Series
+\item $I_1$ and $R_6$ are in Parallel
+\end{enumerate}
+
+
+\newpage
+\section*{References}
+\begin{itemize}
+\item M. Iordache. Class Lectures, Topic: ``Electric circuits.'' EEGR 2053, School of Engineering and Engineering Technology, LeTourneau University, 2025.
+\item M. Iordache. 2024. EEGR 2053 Electric circuits [PowerPoint slides]. Available: \\ https://mviordache.name/EEGR2053/index.html
+\item T. L. Floyd and D. M. Buchla, Principles of Electric Circuits: Conventional Current, 10th ed. Hoboken, NJ: Pearson Education, 2020.
+\item O. Ortiz. 2025. ENGR 2053 Intro to electric circuits [PowerPoint slides].
+\end{itemize}
+
+\end{document}
