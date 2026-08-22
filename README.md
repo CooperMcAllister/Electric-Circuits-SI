@@ -5,7 +5,7 @@ This repository contains notes and example problems for the Electric Circuits or
 **These documents will be updated throughout the semester. The most recent version can always be pulled from this repo.**
 
 ## Organization
-The files are split into two folders, "Practice Problems" and "Study Notes". Within each folder, the files are numbered by topics, with matching numbers in both folders. For example, P1 and R1 both cover Definitions and Units. (I think R stands for Resource.)
+The files are split into two folders, "Practice Problems" and "Study Notes". Within each folder, the files are numbered by topics, with matching numbers in both folders. For example, P1 and R1 both cover Definitions and Units. (I think R stands for Resource.) Both the .pdf and .tex files for each document are included.
 
 ## Usage
 These documents are intended to be used by anyone who is taking a circuits class or is interested in circuits. I've attempted to explain everything in my own words in the best way I know how, so that a student who is struggling with a concept might succeed after seeing it presented in a different way.
