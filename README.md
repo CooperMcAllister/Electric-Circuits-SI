@@ -1,7 +1,8 @@
 # Electric Circuits Notes and Practice Problems
 *By Cooper McAllister*
 
-This repository contains notes and example problems for the Electric Circuits or Intro to Circuits classes. I initially created these documents while I was leading Supplemental Instruction sessions in Spring 2026. There are over 80 pages in total.
+This repository contains notes and example problems for the Electric Circuits or Intro to Circuits classes. I initially created these documents while I was leading Supplemental Instruction sessions in Spring 2026. There are over 80 pages in total. 
+**These documents will be updated throughout the semester. The most recent version can always be pulled from this repo.**
 
 ## Organization
 The files are split into two folders, "Practice Problems" and "Study Notes". Within each folder, the files are numbered by topics, with matching numbers in both folders. For example, P1 and R1 both cover Definitions and Units. (I think R stands for Resource.)
