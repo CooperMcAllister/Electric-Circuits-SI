@@ -215,6 +215,17 @@ For each pair of components, indicate whether the components are in series, para
 \end{enumerate}
 
 
+\section{Dependent Sources}
+If $V_y = 0.85\textrm{V}$ and $g = 1 \textrm{mA}/\textrm{V}$, find (a) $I_x$ and (b) $V_{BA}$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[generic, f<=$I_x$] (0, 6) to[cI, l=$g\cdot V_x$] (6, 6) to[short, *-*] (6, 0) to[short, *-*] (0, 0)
+(3, 0) to[cV, invert, l=$V_x$] (3, 3) to[generic, v=$V_y$] (6, 3);
+\draw (0, 0) node[left] {A}; \draw (6, 6) node[right] {B}; \draw (6, 0) node[right] {C}; 
+\end{circuitikz}
+\subsection*{Solution}
+Note that $V_x = V_y$, and $I_x = -g\cdot V_x$. Therefore, $I_x = -g\cdot V_y = -1\textrm{mA}/\textrm{V}\cdot 0.85\textrm{V} = -850 \mu\textrm{A}$ (a). Because A, B, and C are all  on the same node, $V_{BA} = 0 \textrm{V}$ (b).
+
+
 \newpage
 \section*{References}
 \begin{itemize}
