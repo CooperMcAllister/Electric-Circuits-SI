@@ -87,6 +87,29 @@ $$V_x = 1 - 3 = -2 \ \textrm{V}$$
 $$V_y = 5 + 1 - 3 = 3 \ \textrm{V} \quad \textrm{or if we use } V_x, \quad V_y = 5 + (-2) = 3\ \textrm{V}$$
 $$V_z = 3 - 1 - 5 + 12 = 9\ \textrm{V} \quad \textrm{or if we use } V_y, \quad V_z = -3 + 12 = 9\ \textrm{V}$$
 
+\section{KCL with Networks}
+Find (a) $I_x$, and (b) $I_y$. The boxes represent circuit networks.\\ \\
+\begin{circuitikz}[american]  \draw
+(0, 0) -- (0, 2) -- (2, 2) -- (2, 0) -- (0, 0)
+(4, 0) -- (4, 2) -- (6, 2) -- (6, 0) -- (4, 0)
+(0, 4) -- (0, 6) -- (2, 6) -- (2, 4) -- (0, 4)
+(4, 4) -- (4, 6) -- (6, 6) -- (6, 4) -- (4, 4)
+(1, 0) to[short, f=$5\textrm{A}$] (1, -1)
+(2, 1) to[short] (4, 1)
+(5, 0) to[short, f<=$4\textrm{A}$] (5, -1)
+(1, 2) to[short, f<=$3\textrm{A}$] (1, 4)
+(2, 5) to[short, f=$I_x$] (4, 5)
+(4.5, 2) to[short] (4.5, 4) (5.5, 2) to[short] (5.5, 4)
+(6, 1) to[short, f=$7\textrm{A}$] (7, 1)
+(0, 5 )-- (-1, 5) (-1, 5) to[short, f<=$I_y$] (-2, 4) (-1, 5) to[short, f<=$2\textrm{A}$] (-2, 6)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+Summing the currents entering the network consisting of the bottom-right three boxes:
+$3\textrm{A} + I_x - 7\textrm{A} + 4\textrm{A} - 5\textrm{A} = 0 \Rightarrow I_x = 5\textrm{A}$ (a). Summing the currents entering the top-left box:
+$2\textrm{A} + I_y - I_x - 3\textrm{A} = 0 \Rightarrow I_y = 6\textrm{A}$ (b).
+
+
 \section{Finding current with KVL}
 Find $I_1$. \\ \\
 \begin{circuitikz}[american] \draw

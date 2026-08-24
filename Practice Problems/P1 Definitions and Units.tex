@@ -168,11 +168,11 @@ A resistor carries 2A of current and dissapates 600 J of energy in one minute. F
 (b) $P = IV = I(IR) = I^2R \Rightarrow R = \frac{P}{I^2} = \frac{10 \textrm{W}}{(2 \textrm{A})^2} = \frac{10 \textrm{V}\cdot\textrm{A}}{4 \textrm{A}^2} = 2.5 \frac{\textrm{V}}{\textrm{A}} = 2.5 \ \Omega$
 
 \section{Circuit Elements}
-Find $V_x$, $V_y$, $V_z$, $V_a$, and $I_x$. \\ \\
+Find $V_x$, $V_y$, $V_z$, $V_a$, $I_x$, and $I_y$. \\ \\
 \begin{circuitikz}[american] \draw
-(0, 0) to[vsource, l=$8\textrm{V}$] (0, 3) to[short] (0, 5) to[isource, l=$20\textrm{mA}$] (3, 5) to[short] (12, 5) to[short, f=$I_x$] (12, 3) to[short] (12, 0) to[vsource, l=$5 \textrm{V}$] (9, 0) to[short] (0, 0)
+(0, 0) to[vsource, l=$8\textrm{V}$] (0, 3) to[short] (0, 5) to[isource, l=$20\textrm{mA}$] (3, 5) to[short] (12, 5) to[short, f=$I_y$] (12, 3) to[short] (12, 0) to[vsource, l=$5 \textrm{V}$] (9, 0) to[short] (0, 0)
 (0, 3) to[short] (3, 3) to[R, v=$V_a$] (6, 3) to[isource, invert, l=$50\textrm{mA}$] (9, 3) to[short] (12, 3)
-(3, 0) to[R, v=$V_x$] (3, 3) 
+(3, 0) to[R, l=$20\Omega$, v=$V_x$, f=$I_x$] (3, 3) 
 (6, 0) to[short] (6, 3)
 (9, 0) to[R] (9, 3)
 (6, 3) to[open, v<=$V_y$] (6, 5)
@@ -184,7 +184,8 @@ $V_x = 8 \ \textrm{V}$ \\
 $V_y = 5 \ \textrm{V}$ \\
 $V_z = 0 \ \textrm{V}$ \\
 $V_a =- 8 \ \textrm{V}$ \\
-$I_x = 20 \ \textrm{mA}$
+$I_y = 20 \ \textrm{mA}$ \\
+Using Ohm's Law, $I_x = \frac{V_x}{20\Omega} = \frac{8\textrm{V}}{20\Omega} = 400 \textrm{mA}$.
 
 
 \section{Series and Parallel Components}
