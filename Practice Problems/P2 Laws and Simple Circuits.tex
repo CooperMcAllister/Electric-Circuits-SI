@@ -495,6 +495,41 @@ First we will combine all the parallel resistors: \\ \\
 We can find $V_1$ and $V_2$ using voltage division: $V_1 = 10\cdot\frac{20}{20 + 5} = 8 \textrm{V}$ and $V_2 = 10\cdot\frac{\frac{100}{3}}{\frac{100}{3} + 25} = \frac{40}{7} \textrm{V}$. Then, using KVL, $V_x = V_1 - V_2 = 8 - \frac{40}{7} = 2.29 \ \textrm{V}$.
 
 \section{General Analysis}
+Find $V_x$. \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[short] (0, 3) to[isource, l=$10\textrm{mA}$] (0, 6) (3, 0) to[R, l=$40\Omega$, v<=$V_1$]  (3, 3) to[R, l=$5\Omega$] (3, 6) (0, 3) to[R, l=$40\Omega$] (3, 3)
+(6, 0) to[R, l=$50\Omega$, v<=$V_2$] (6, 3) to[R, l=$75\Omega$] (6, 6) to[R, l=$75\Omega$] (9, 6) to[short] (9, 3) to[R, l=$200\Omega$] (9, 0) (6, 3) to[short] (9, 3) (6, 6) to[R, l=$75\Omega$] (9, 3)
+(3, 3) to[open, v=$V_x$] (6, 3)
+(0, 0) to[short] (9, 0) (0, 6) to[short] (6, 6)
+(9, 0) -- (12, 0) to[R=$260\Omega$] (12, 7) -- (6, 7) -- (6, 6)
+;
+\end{circuitikz} \\ \\
+\subsection*{Solution}
+We will solve this problem by finding first $V_1$ and $V_2$.
+We can combine resistors to obtain: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[isource, l=$10\textrm{mA}$] (0, 3) -- (3, 3) to[R=$25\Omega$, f=$I_1$] (3, 0) -- (0, 0) (3, 3) -- (6, 3) to[R=$52\Omega$, f=$I_2$, v=$V_{tot}$] (6, 0) -- (3, 0)
+;
+\end{circuitikz} \\ \\
+Using current division and KCL,
+$$I_1 = 10\textrm{mA}\cdot\frac{\frac{1}{25}}{\frac{1}{25} + \frac{1}{52}} = 6.7532\textrm{mA}$$
+$$I_2 = 10\textrm{mA} - I_1 = 3.2467\textrm{mA}$$
+We can also find the total voltage $V_{tot} = I_2\cdot 52\Omega = 168.831\textrm{mV}$.
+\\We can now use Ohm's Law to find $V_1$, after combining the two $20\Omega$ resistors: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) to[R=$20\Omega$, v<=$V_1$] (0, 3) to[R=$5\Omega$, f<=$I_1$] (0, 6)
+;
+\end{circuitikz} \\ \\
+$V_1 = I_1\cdot 20\Omega = 135.064\textrm{mV}$.
+Next, we can use voltage division to find $V_3$: \\ \\
+\begin{circuitikz}[american] \draw
+(0, 0) -- (1, 0) to[R=$40\Omega$, v<=$V_2$] (1, 3) to[R=$25\Omega$,] (1, 6) -- (0, 6) to[open, v=$V_{tot}$] (0, 0)
+;
+\end{circuitikz} \\ \\
+$V_2 = V_{tot}\cdot\frac{40}{40 + 25} = 103.896\textrm{mV}$.
+Finally, using KVL, $V_x = V_1 - V_2 = 31.2\textrm{mV}$.
+
+\section{General Analysis}
 Find $V_1$ and $V_2$. \\ \\
 \begin{circuitikz}[american] \draw
 (0, 1) node[ground]{} to[short] (0, 3) to[vsource, invert, l=$5\textrm{V}$] (3, 3) to[R, l=$7\Omega$] (6, 3) to[R, l=$10\Omega$] (9, 3) to[R, l=$5\Omega$, v=$V_2$] (12, 3) to[short] (12, 0) node[ground]{}
